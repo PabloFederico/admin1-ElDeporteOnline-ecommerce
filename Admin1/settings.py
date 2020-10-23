@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
+import django_heroku
 import moneyed
 from moneyed.localization import _sign, DEFAULT
 
@@ -85,9 +86,22 @@ WSGI_APPLICATION = 'Admin1.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'admin1',
+        'USER': 'postgres',
+        'PASSWORD': '123456',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
+} if not DEBUG else {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    },
 }
 
 # Password validation
@@ -129,3 +143,6 @@ STATIC_URL = '/static/'
 _sign("en_US", moneyed.ARS, prefix='$')
 _sign("en_US", moneyed.USD, prefix='US$')
 CURRENCIES = ('ARS', 'USD')
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
