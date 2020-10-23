@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}  
+
+    <ul>
+        {% for product in object_list %}
+
+            <li>{{ product.name }}</li>
+            <li>{{ product.short_description }}</li>
+            <li>{{ product.price }}</li>
+
+            {% for variant in product.variants.all %}
+                <li>
+                    Variante: {{ variant.name }}: Valores=
+                    {% for value in variant.values.all %}
+                        {{  value.name }},
+                    {% empty %}
+                        No tiene
+                    {% endfor %}
+                </li>
+            {% endfor %}
+
+            <hr/>
+        {% empty %}
+            <li>No products yet.</li>
+        {% endfor %}
+    </ul>
+
+{% endblock content %}
