@@ -1,10 +1,16 @@
-### Admin
-- Para crear un usuario administrador: `python manage.py createsuperuser`
-- URL: `localhost:8000/admin`
+### Heroku
+- URL: https://admin1-equipo7.herokuapp.com/
+- admin: https://admin1-equipo7.herokuapp.com/admin
+- Usuario administrador: username `admin` password `admin`
 
 
 ### Server local
 - `python manage.py runserver` (corre en el puerto 8000)
+
+
+### Admin local
+- Para crear un usuario administrador: `python manage.py createsuperuser`
+- URL: `localhost:8000/admin`
 
 
 ### Migraciones
