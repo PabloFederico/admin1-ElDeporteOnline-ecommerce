@@ -1,21 +1,25 @@
 from django.contrib import admin
+from nested_inline.admin import NestedModelAdmin, NestedStackedInline, NestedTabularInline
 
 from Products.models import Product, ProductVariant, ProductVariantValue
 
 
+class ProductVariantValueInline(NestedTabularInline):
+    model = ProductVariantValue
+    extra = 1
+    fk_name = 'variant'
+
+
+class ProductVariantInline(NestedStackedInline):
+    model = ProductVariant
+    extra = 1
+    fk_name = 'product'
+    inlines = [ProductVariantValueInline]
+
+
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(NestedModelAdmin):
     list_display = ["name", "short_description", "price", "hide_from_catalog"]
     search_fields = ['name']
-
-
-@admin.register(ProductVariant)
-class ProductVariantAdmin(admin.ModelAdmin):
-    list_display = ["name", "product"]
-    search_fields = ['name', 'product__name']
-
-
-@admin.register(ProductVariantValue)
-class ProductVariantValueAdmin(admin.ModelAdmin):
-    list_display = ["name", "variant"]
-    search_fields = ['name', 'variant__name']
+    model = Product
+    inlines = [ProductVariantInline]

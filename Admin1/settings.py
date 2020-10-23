@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 LIBRARIES = [
     'djmoney',
+    'nested_inline',
 ]
 
 APPS = [
@@ -124,9 +125,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
-
 
 _sign("en_US", moneyed.ARS, prefix='$')
 _sign("en_US", moneyed.USD, prefix='US$')
