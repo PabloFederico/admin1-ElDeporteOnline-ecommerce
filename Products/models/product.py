@@ -8,11 +8,15 @@ from Products.querysets.product_queryset import ProductQuerySet
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=255)
-    short_description = models.CharField(max_length=255)
-    description = models.TextField()
-    price = MoneyField(max_digits=12, decimal_places=2, validators=[MinMoneyValidator(Decimal("0.01"))])
-    hide_from_catalog = models.BooleanField(default=False)
+    class Meta:
+        verbose_name = "producto"
+        verbose_name_plural = "productos"
+
+    name = models.CharField(max_length=255, verbose_name="nombre")
+    short_description = models.CharField(max_length=255, verbose_name="descripcion corta")
+    description = models.TextField(verbose_name="descripcion larga")
+    price = MoneyField(max_digits=12, decimal_places=2, validators=[MinMoneyValidator(Decimal("0.01"))],
+                       verbose_name="precio")
 
     objects = ProductQuerySet.as_manager()
 

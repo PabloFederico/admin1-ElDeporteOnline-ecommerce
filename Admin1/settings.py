@@ -125,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-AR'
 
 TIME_ZONE = 'UTC'
 
@@ -140,8 +140,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-_sign("en_US", moneyed.ARS, prefix='$')
-_sign("en_US", moneyed.USD, prefix='US$')
+_sign("DEFAULT", moneyed.ARS, prefix='$')
+_sign("DEFAULT", moneyed.USD, prefix='US$')
+
+moneyed.add_currency('ARS', '032', 'Peso Argentino', ['ARGENTINA'])
+
 CURRENCIES = ('ARS', 'USD')
 
 # Activate Django-Heroku.
