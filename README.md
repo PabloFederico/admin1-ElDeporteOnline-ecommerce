@@ -23,3 +23,9 @@
 
 - Instalar librerías del proyecto: `pip install -r requirements.txt`
 - Al instalar una nueva librería: `pip freeze > requirements.txt`
+
+
+### Development
+
+- Crear nueva carpeta: `python manage.py startapp <Nombre>`, luego agregarla en `settings`
+

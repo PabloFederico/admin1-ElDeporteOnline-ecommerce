@@ -40,6 +40,7 @@ LIBRARIES = [
 ]
 
 APPS = [
+    'LandingPage',
     'Products',
     'Catalog',
 ]
