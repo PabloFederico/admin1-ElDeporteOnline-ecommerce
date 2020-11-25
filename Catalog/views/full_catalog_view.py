@@ -4,7 +4,6 @@ from Products.models import Product
 
 
 class FullCatalogView(ListView):
-
     model = Product
     template_name = "catalog/full_catalog.html"
 

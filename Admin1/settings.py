@@ -15,8 +15,9 @@ from pathlib import Path
 import django_heroku
 import moneyed
 from moneyed.localization import _sign, DEFAULT
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from testtinymce.settings import TINYMCE_DEFAULT_CONFIG
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -35,6 +36,7 @@ ALLOWED_HOSTS = []
 LIBRARIES = [
     'djmoney',
     'nested_inline',
+    'tinymce',
 ]
 
 APPS = [
@@ -146,6 +148,17 @@ _sign("DEFAULT", moneyed.USD, prefix='US$')
 moneyed.add_currency('ARS', '032', 'Peso Argentino', ['ARGENTINA'])
 
 CURRENCIES = ('ARS', 'USD')
+
+TINYMCE_DEFAULT_CONFIG.update({
+    'toolbar': 'undo redo | '
+               'formatselect | '
+               'bold italic underline strikethrough | '
+               'fontselect fontsizeselect forecolor backcolor | '
+               'alignleft aligncenter alignright alignjustify | '
+               'bullist numlist outdent indent | '
+               'removeformat | '
+               'help',
+})
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
