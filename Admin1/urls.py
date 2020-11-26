@@ -21,4 +21,5 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     path('catalog', include('Catalog.urls')),
     path('', include('LandingPage.urls')),
+    path('productos/',include('Products.urls')),
 ]
