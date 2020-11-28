@@ -1,6 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}  
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+
 
     <ul style="background-color: #737373;">
         {% for product in object_list %}
@@ -47,7 +65,7 @@ Segundo Formato.
     <td>Soy una imgan</td>
     <td>{{ product.name }}</td>
     <td>{{ product.short_description }}</td>
-    <td>{{ product.description }}</td>
+    <td>{{ product.description | safe }}</td>
     <td>{{ product.price }}</td>
     </tr>
   {% empty %}    
