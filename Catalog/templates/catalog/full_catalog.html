@@ -4,31 +4,33 @@
 
     <ul>
         {% for product in object_list %}
-        <li>
+        <li style="display: inline; float: left; ">
             <div style="background-color: #cccccc; width:300px; height: 300px; border: ridge black 1px; border-radius: 5px 5px 5px 5px;">
-                <div style="height: 60%; border-radius: 5px 5px 5px 5px;">
+                <div style="height: 60%; border-radius: 5px 5px 5px 5px; margin: 20px;">
                 Imagina que soy una imagen.
                 </div>
                 <div style="background-color: #ffffff; height: 40% border-radius: 5px 5px 5px 5px;">
                     <div style="width:100%;">
-                    <span>{{ product.name }}</span>
+                    <span style="font-size: large;">{{ product.name }}</span>
                     </div>
                     <div style="width:100%;">
-                    <span>{{ product.short_description }}</span>
+                    <span style="color:#cccccc;">{{ product.short_description }}</span>
                     </div>
                     <div style="width:100%;">
-                    <span>{{ product.description | safe }}</span>
+                    <span style="font-size: smaller; color:#cccccc;">{{ product.description | safe }}</span>
                     </div>
                     <div style="width:100%;">
-                    <span>{{ product.price }}</span>
+                    <span><b>{{ product.price }}<b></span>
                     </div>
                 </div>
             </div>
         </li>
-            <hr/>
         {% empty %}
             <li>No products yet.</li>
         {% endfor %}
     </ul>
 
 {% endblock content %}
+
+
+            <hr/>
