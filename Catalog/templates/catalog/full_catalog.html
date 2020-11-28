@@ -20,7 +20,7 @@
                     <span style="font-size: smaller; color:#cccccc;">{{ product.description | safe}}</span>
                     </div>
                     <div style="width:100%;">
-                    <span><b>{{ product.price }}</b></span>
+                    <span style="text-align: right;"><b>{{ product.price }}</b></span>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,34 @@
         {% endfor %}
     </ul>
 
+Segundo Formato.
+
+
 {% endblock content %}
 
-
-            <hr/>
+<table>
+  <tr>
+    <th>Imagen</th>
+    <th>Nombre</th>
+     <th>Precio</th>
+    <th>Descripcion</th>
+    <th>Descripcion Corta</th>
+    </tr>
+   {% for product in object_list %}
+  <tr>
+    <td>Soy una imgan</td>
+    <td>{{ product.name }}</td>
+    <td>{{ product.short_description }}</td>
+    <td>{{ product.description }}</td>
+    <td>{{ product.price }}</td>
+    </tr>
+  {% empty %}    
+  <tr>
+    <td>Soy una imgan</td>
+    <td>No products yet.</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  {% endfor %}
+</table>
