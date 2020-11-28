@@ -4,14 +4,17 @@
 
     <ul>
         {% for product in object_list %}
-
-        probando 1 2 3       
-        
-            <li>{{ product.name }}</li>
-            <li>{{ product.short_description }}</li>
-            <li>{{ product.description | safe }}</li>
-            <li>{{ product.price }}</li>
-
+        <li>
+            <div>
+                Imagina que soy una imagen.
+                <div>
+                    <span>{{ product.name }}</span>
+                    <span>{{ product.short_description }}</span>
+                    <span>{{ product.description | safe }}</span>
+                    <span>{{ product.price }}</span>
+                </div>
+            </div>
+        </li>
             <hr/>
         {% empty %}
             <li>No products yet.</li>
