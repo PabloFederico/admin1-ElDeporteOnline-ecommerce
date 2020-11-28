@@ -5,15 +5,23 @@
     <ul>
         {% for product in object_list %}
         <li>
-            <div style="background-color: #cccccc; width:300px; height: 300px; border: ridge black 1px;">
-                <div>
+            <div style="background-color: #cccccc; width:300px; height: 300px; border: ridge black 1px; border-radius: 5px 5px 5px 5px;">
+                <div style="height: 60%; border-radius: 5px 5px 5px 5px;">
                 Imagina que soy una imagen.
-                </div style="height: 60%;">
-                <div style="background-color: #ffffff; height: 40%">
+                </div>
+                <div style="background-color: #ffffff; height: 40% border-radius: 5px 5px 5px 5px;">
+                    <div style="width:100%;">
                     <span>{{ product.name }}</span>
+                    </div>
+                    <div style="width:100%;">
                     <span>{{ product.short_description }}</span>
+                    </div>
+                    <div style="width:100%;">
                     <span>{{ product.description | safe }}</span>
+                    </div>
+                    <div style="width:100%;">
                     <span>{{ product.price }}</span>
+                    </div>
                 </div>
             </div>
         </li>
