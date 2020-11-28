@@ -1,4 +1,6 @@
+import os
 from decimal import Decimal
+from uuid import uuid4
 
 from django.db import models
 from djmoney.models.fields import MoneyField
@@ -23,3 +25,25 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ProductImage(models.Model):
+    def path_and_rename(instance, filename):
+        upload_to = 'images/products/'
+        ext = filename.split('.')[-1]
+        # get filename
+        if instance.pk:
+            filename = '{}.{}'.format(instance.pk, ext)
+        else:
+            # set filename as random string
+            filename = '{}.{}'.format(uuid4().hex, ext)
+        # return the whole path to the file
+        return os.path.join(upload_to, filename)
+
+    class Meta:
+        verbose_name = "imagen del producto"
+        verbose_name_plural = "imagenes del producto"
+    description = models.CharField(max_length=255, verbose_name="descripcion")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=path_and_rename,null=True, blank=True, verbose_name="Imagen")
+    externalUri = models.URLField(max_length=200, null=True, blank=True, verbose_name="Imagen externa")
