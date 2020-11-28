@@ -2,6 +2,7 @@ import os
 from decimal import Decimal
 from uuid import uuid4
 
+import django_heroku
 from django.db import models
 from djmoney.models.fields import MoneyField
 from djmoney.models.validators import MinMoneyValidator
@@ -38,7 +39,7 @@ class ProductImage(models.Model):
             # set filename as random string
             filename = '{}.{}'.format(uuid4().hex, ext)
         # return the whole path to the file
-        return os.path.join(upload_to, filename)
+        return django_heroku.os.path.join(upload_to, filename)
 
     class Meta:
         verbose_name = "imagen del producto"
