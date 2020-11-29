@@ -50,6 +50,8 @@ tr:nth-child(even) {
 
 Segundo Formato.
 
+https://admin1-equipo7.herokuapp.com/productos/1/
+
 <table>
   <tr>
     <th>Imagen</th>
@@ -59,10 +61,12 @@ Segundo Formato.
   </tr>
    {% for product in object_list %}
   <tr>
-    <td>Soy una imgan</td>
-    <td>{{ product.name }}</td>
-    <td>{{ product.short_description }}</td>
-    <td>{{ product.price }}</td>
+    <a html="https://admin1-equipo7.herokuapp.com/productos/" + {{ product.id }} + "/">
+      <td>Soy una imgan</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.short_description }}</td>
+      <td>{{ product.price }}</td>
+    </a>
     </tr>
   {% empty %}    
   <tr>
