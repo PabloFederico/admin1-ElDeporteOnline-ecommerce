@@ -59,13 +59,13 @@ a:link {
                 </div>
                 <div class="cuadroBlanco">
                     <div style="width:100%;">
-                    <span style="font-size: large; color: black;">">{{ product.name }}</span>
+                    <span style="font-size: large; color: black;">{{ product.name }}</span>
                     </div>
                     <div style="width:100%;">
                     <span style="font-size: smaller; color:#cccccc;">{{ product.short_description}}</span>
                     </div>
                     <div style="width:100%;">
-                    <span style="float: left; text-align: right; color: black"><b>{{ product.price }}</b></span>
+                    <span style="width: 100%; float: left; text-align: right; color: black"><b>{{ product.price }}</b></span>
                     </div>
                 </div>
             </div>
@@ -91,7 +91,7 @@ a:link {
       <td>Soy una imgan</td>
       <td>{{ product.name }}</td>
       <td>{{ product.short_description }}</td>
-      <td style="float: left; text-align: right;">{{ product.price }}</td>
+      <td style="width: 100%; float: left; text-align: right;">{{ product.price }}</td>
       <td><a href="https://admin1-equipo7.herokuapp.com{% url "producto" product.id %}">Detalles</a></td>
     </a>
     </tr>
