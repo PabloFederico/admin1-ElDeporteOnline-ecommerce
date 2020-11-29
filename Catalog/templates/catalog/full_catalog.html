@@ -22,9 +22,13 @@ tr:nth-child(even) {
   background-color: #737373;
 }
   
-.lista {
-  display: #inline;
-  float: #left;
+.cuadroGrande {
+  background-color: #cccccc; 
+  width:300px; 
+  height: 300px; 
+  border: ridge black 1px; 
+  border-radius: 5px 5px 5px 5px; 
+  margin: 20px;
 } 
   
 a:link {
@@ -36,9 +40,9 @@ a:link {
 
     <ul class="fondo">
         {% for product in object_list %}
-        <li class="lista">
-            <a href="https://admin1-equipo7.herokuapp.com/productos/ + {{ product.id }} + /">
-            <div style="background-color: #cccccc; width:300px; height: 300px; border: ridge black 1px; border-radius: 5px 5px 5px 5px; margin: 20px;">
+        <li style="display: inline; float: left; ">
+            <a href="https://admin1-equipo7.herokuapp.com/productos/ {% url "producto" product.id %} /">
+            <div class="cuadroGrande">
                 <div style="height: 60%; border-radius: 5px 5px 5px 5px;">
                 Imagina que soy una imagen.
                 </div>
