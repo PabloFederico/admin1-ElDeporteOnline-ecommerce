@@ -31,6 +31,11 @@ tr:nth-child(even) {
   margin: 20px;
 } 
   
+.cuadroImagen {
+  height: 60%; 
+  border-radius: 5px 5px 5px 5px;
+} 
+  
 a:link {
   text-decoration: none;
 }  
@@ -41,9 +46,9 @@ a:link {
     <ul class="fondo">
         {% for product in object_list %}
         <li style="display: inline; float: left; ">
-            <a href="https://admin1-equipo7.herokuapp.com/{% url "producto" product.id %}">
+            <a href="{% url "producto" product.id %}">
             <div class="cuadroGrande">
-                <div style="height: 60%; border-radius: 5px 5px 5px 5px;">
+                <div class="cuadroImagen">
                 Imagina que soy una imagen.
                 </div>
                 <div style="background-color: #ffffff; height: 40%; border-radius: 5px 5px 5px 5px;">
@@ -81,7 +86,7 @@ a:link {
       <td>{{ product.name }}</td>
       <td>{{ product.short_description }}</td>
       <td>{{ product.price }}</td>
-      <td><a href="https://admin1-equipo7.herokuapp.com/productos/ + {{ product.id }} + /">Detalles</a></td>
+      <td><a href="https://admin1-equipo7.herokuapp.com{% url "producto" product.id %}">Detalles</a></td>
     </a>
     </tr>
   {% empty %}    
