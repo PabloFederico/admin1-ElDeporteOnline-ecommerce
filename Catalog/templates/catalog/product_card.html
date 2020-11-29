@@ -1,0 +1,34 @@
+{% load static %}
+
+{# to use this template: {% include "catalog/product_card.html" with product=product %} #}
+
+<link rel="stylesheet" type="text/css" href="{% static 'catalog/product_card.css' %}">
+
+<li style="display: inline; float: left; ">
+    <a href="{% url "producto" product.id %}">
+
+        <div class="producto-card-cuadroGrande">
+
+            <div class="producto-card-cuadroImagen">
+                Imagina que soy una imagen.
+            </div>
+
+            <div class="producto-card-cuadroBlanco p-1">
+                <div style="width:100%;">
+                    <span style="color: black;" class="w-100 h4 d-inline-block text-truncate">{{ product.name }}</span>
+                </div>
+
+                <div style="width:100%;">
+                    <span style="font-size: smaller; color:#cccccc;"
+                          class="w-100 d-inline-block text-truncate">{{ product.short_description }}</span>
+                </div>
+
+                <div style="width:100%;">
+                        <span style="width: 100%; float: left; text-align: right; color: black" class="h5">
+                            <b>{{ product.price }}</b>
+                        </span>
+                </div>
+            </div>
+        </div>
+    </a>
+</li>
