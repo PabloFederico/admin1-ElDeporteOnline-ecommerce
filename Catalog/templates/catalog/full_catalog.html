@@ -36,6 +36,12 @@ tr:nth-child(even) {
   border-radius: 5px 5px 5px 5px;
 } 
   
+.cuadroBlanco {
+  background-color: #ffffff;
+  height: 40%;
+  border-radius: 5px 5px 5px 5px;
+}   
+
 a:link {
   text-decoration: none;
 }  
@@ -51,15 +57,15 @@ a:link {
                 <div class="cuadroImagen">
                 Imagina que soy una imagen.
                 </div>
-                <div style="background-color: #ffffff; height: 40%; border-radius: 5px 5px 5px 5px;">
+                <div class="cuadroBlanco">
                     <div style="width:100%;">
-                    <span style="font-size: large;">{{ product.name }}</span>
+                    <span style="font-size: large; color: black;">">{{ product.name }}</span>
                     </div>
                     <div style="width:100%;">
                     <span style="font-size: smaller; color:#cccccc;">{{ product.short_description}}</span>
                     </div>
                     <div style="width:100%;">
-                    <span style="text-align: right;"><b>{{ product.price }}</b></span>
+                    <span style="float: left; text-align: right; color: black"><b>{{ product.price }}</b></span>
                     </div>
                 </div>
             </div>
@@ -85,7 +91,7 @@ a:link {
       <td>Soy una imgan</td>
       <td>{{ product.name }}</td>
       <td>{{ product.short_description }}</td>
-      <td>{{ product.price }}</td>
+      <td style="float: left; text-align: right;">{{ product.price }}</td>
       <td><a href="https://admin1-equipo7.herokuapp.com{% url "producto" product.id %}">Detalles</a></td>
     </a>
     </tr>
