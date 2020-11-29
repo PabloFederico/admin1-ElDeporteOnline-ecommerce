@@ -16,7 +16,7 @@ class Product(models.Model):
         verbose_name = "producto"
         verbose_name_plural = "productos"
 
-    name = models.CharField(max_length=255, verbose_name="nombre")
+    name = models.CharField(max_length=100, verbose_name="nombre")
     short_description = models.CharField(max_length=255, verbose_name="descripcion corta")
     description = tinymce_models.HTMLField(verbose_name="descripcion larga")
     price = MoneyField(max_digits=12, decimal_places=2, validators=[MinMoneyValidator(Decimal("0.01"))],

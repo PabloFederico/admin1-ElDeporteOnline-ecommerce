@@ -57,15 +57,17 @@ a:link {
                 <div class="cuadroImagen">
                 Imagina que soy una imagen.
                 </div>
-                <div class="cuadroBlanco">
+                <div class="cuadroBlanco p-1">
                     <div style="width:100%;">
-                    <span style="font-size: large; color: black;">{{ product.name }}</span>
+                        <span style="color: black;" class="w-100 h4 d-inline-block text-truncate">{{ product.name }}</span>
                     </div>
                     <div style="width:100%;">
-                    <span style="font-size: smaller; color:#cccccc;">{{ product.short_description}}</span>
+                        <span style="font-size: smaller; color:#cccccc;" class="w-100 d-inline-block text-truncate">{{ product.short_description}}</span>
                     </div>
                     <div style="width:100%;">
-                    <span style="width: 100%; float: left; text-align: right; color: black"><b>{{ product.price }}</b></span>
+                        <span style="width: 100%; float: left; text-align: right; color: black" class="h5">
+                            <b>{{ product.price }}</b>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -78,6 +80,9 @@ a:link {
 
 <hr>
 
+{% comment %}
+queda para despues, cuando hagamos en formato cards
+
 <table>
   <tr>
     <th>Imagen</th>
@@ -88,16 +93,16 @@ a:link {
   </tr>
    {% for product in object_list %}
   <tr>
-      <td>Soy una imgan</td>
+      <td>Soy una imagen</td>
       <td>{{ product.name }}</td>
       <td>{{ product.short_description }}</td>
       <td style="width: 100%; float: left; text-align: right;">{{ product.price }}</td>
-      <td><a href="https://admin1-equipo7.herokuapp.com{% url "producto" product.id %}">Detalles</a></td>
+      <td><a href="{% url "producto" product.id %}">Detalles</a></td>
     </a>
     </tr>
   {% empty %}    
   <tr>
-    <td>Soy una imgan</td>
+    <td></td>
     <td>No products yet.</td>
     <td></td>
     <td></td>
@@ -105,5 +110,7 @@ a:link {
   </tr>
   {% endfor %}
 </table>
+
+{% endcomment %}
 
 {% endblock content %}

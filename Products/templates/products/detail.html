@@ -7,11 +7,14 @@
         Aca van las fotos
       </div>
       <div class="col-sm">
-        <h2>{{theproduct}}</h2>
-         <span>Descripción corta: {{ theproduct.short_description }}</span><br>
-         <span>Descripción: {{ theproduct.description }} </span> <br>
-         <span>Precio: {{ theproduct.price }}</span>
+         <h1>{{theproduct}}</h1>
+         <span style="font-size: large">Descripción corta: {{ theproduct.short_description }}</span><br>
+         <span style="font-size: x-large">Precio: {{ theproduct.price }}</span>
       </div>
+    </div>
+
+    <div class="row mt-5 border p-3">
+        <span>{{ theproduct.description | safe }} </span> <br>
     </div>
 </div>
 
