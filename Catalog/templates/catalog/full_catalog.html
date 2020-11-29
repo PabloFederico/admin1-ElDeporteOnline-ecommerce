@@ -41,7 +41,7 @@ a:link {
     <ul class="fondo">
         {% for product in object_list %}
         <li style="display: inline; float: left; ">
-            <a href="https://admin1-equipo7.herokuapp.com/ { url "producto" product.id } ">
+            <a href="https://admin1-equipo7.herokuapp.com/{% url "producto" product.id %}">
             <div class="cuadroGrande">
                 <div style="height: 60%; border-radius: 5px 5px 5px 5px;">
                 Imagina que soy una imagen.
