@@ -48,3 +48,5 @@ class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=path_and_rename,null=True, blank=True, verbose_name="Imagen")
     externalUri = models.URLField(max_length=200, null=True, blank=True, verbose_name="Imagen externa")
+
+    objectsProductsImages = ProductQuerySet.as_manager()
