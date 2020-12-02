@@ -6,9 +6,13 @@
       <div class="col-md-6">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
-            {% for n in theproduct.images.all %}
+            {% for n in theproduct.images.all %}           
             <div class="carousel-item{% if forloop.first %} active{% endif %} ">
-            <img class="d-block w-100" src="{{ n.image.url }}" style="height: 300px;"/>
+              {% if n.image %}
+              <img class="d-block w-100" src="{{ n.image.url }}" style="height: 300px;"/>             
+              {% else %}
+              <img class="d-block w-100" src="{{ n.externalUri }}" style="height: 300px;"/>
+              {% endif %}
             </div>
             {% endfor %}
           </div>
