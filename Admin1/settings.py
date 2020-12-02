@@ -55,6 +55,7 @@ APPS = [
     'LandingPage',
     'Products',
     'Catalog',
+    'Sales',
 ]
 
 INSTALLED_APPS = [
@@ -175,3 +176,5 @@ TINYMCE_DEFAULT_CONFIG.update({
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+CART_SESSION_VARIABLE = "CART"
