@@ -44,9 +44,8 @@ class ProductImage(models.Model):
     class Meta:
         verbose_name = "imagen del producto"
         verbose_name_plural = "imagenes del producto"
+
     description = models.CharField(max_length=255, verbose_name="descripcion")
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
     image = models.ImageField(upload_to=path_and_rename,null=True, blank=True, verbose_name="Imagen")
     externalUri = models.URLField(max_length=200, null=True, blank=True, verbose_name="Imagen externa")
-
-    objectsProductsImages = ProductQuerySet.as_manager()

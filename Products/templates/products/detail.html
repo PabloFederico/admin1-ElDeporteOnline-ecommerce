@@ -6,7 +6,7 @@
       <div class="col-md-6">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
-            {% for n in fotos %}
+            {% for n in theproduct.images.all %}
             <div class="carousel-item{% if forloop.first %} active{% endif %} ">
             <img class="d-block w-100" src="{{ n.image.url }}" style="height: 300px;"/>
             </div>
@@ -29,7 +29,6 @@
          <button class="btn btn-success btn-block" onclick="location.href = '/compra'">Agregar al carrito</button>
       </div>
     </div>
-    {{ fotos.length }}
     <div class="row mt-5 border p-3">
         <span>{{ theproduct.description | safe }} </span> <br>
     </div>
