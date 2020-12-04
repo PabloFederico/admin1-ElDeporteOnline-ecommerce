@@ -31,12 +31,14 @@ class Cart:
         } for p in self.products]
 
     def add_product(self, product, quantity):
-        new_product_data = (product.id, quantity)
         for i, data in enumerate(self.products):
-            if data[0].id == product.id:
+            if data[0] == product.id:
                 # product already in cart
+                new_product_data = (product.id, quantity + data[1])
                 self.products[i] = new_product_data
                 self._save()
                 return
+
+        new_product_data = (product.id, quantity)
         self.products.append(new_product_data)
         self._save()

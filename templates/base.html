@@ -18,6 +18,21 @@
         {%  include "navbar.html" %}
     </header>
 
+    {% if messages %}
+        <div class="messages justify-content-center row text-center">
+            {% for message in messages %}
+
+                <div class="alert alert-{% if message.level_tag == 'error' %}danger{% else %}{{ message.level_tag }}{% endif %} alert-dismissible fade show w-50 my-5" role="alert">
+                    {{message.message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <div id="content" class="m-5">
         {% block content %}
             if you see this, something is wrong!
