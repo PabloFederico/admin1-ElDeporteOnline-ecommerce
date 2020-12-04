@@ -26,12 +26,24 @@
           </a>
        </div>
       </div>
-      <div class="col-md-6">
-         <h1>{{theproduct}}</h1>
-         <span style="font-size: large">Descripción corta: {{ theproduct.short_description }}</span><br>
-         <span style="font-size: x-large">Precio: {{ theproduct.price }}</span> <br><br>
-         <button class="btn btn-success btn-block" onclick="location.href = '/compra'">Agregar al carrito</button>
-      </div>
+
+          <div class="col-md-6">
+             <h1>{{theproduct}}</h1>
+             <span style="font-size: large">Descripción corta: {{ theproduct.short_description }}</span><br>
+             <span style="font-size: x-large">Precio: {{ theproduct.price }}</span> <br><br>
+
+              <form method="POST" action="{%  url 'add_to_cart' %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="product_id" value="{{ theproduct.id }}" />
+                  <div class="form-group row ml-1">
+                      <label style="font-size: x-large" for="quantity">Cantidad: </label>
+                      <input id="quantity" type="number" min="1" value="1" name="quantity" class="form-control col-2 ml-4" />
+                  </div>
+
+                  <input type="submit" class="btn btn-success btn-block" value="Agregar al carrito" />
+              </form>
+          </div>
+
     </div>
     <div class="row mt-5 border p-3">
         <span>{{ theproduct.description | safe }} </span> <br>
