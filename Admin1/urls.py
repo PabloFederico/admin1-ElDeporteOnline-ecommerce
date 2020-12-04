@@ -22,8 +22,8 @@ from Admin1 import settings
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('tinymce/', include('tinymce.urls')),
-                  path('catalog', include('Catalog.urls')),
+                  path('catalogo', include('Catalog.urls')),
                   path('', include('LandingPage.urls')),
                   path('productos/', include('Products.urls')),
-                  path('sales/', include('Sales.urls')),
+                  path('ventas/', include('Sales.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
