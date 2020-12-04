@@ -1,0 +1,16 @@
+<nav class="navbar navbar-expand navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">El deporte Online</a>
+    <div id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+
+            <li class="nav-item {% if "catalog" in request.get_full_path %}active{% endif %}">
+                <a class="nav-link" href="{% url "full_catalog" %}">
+                    Catálogo
+                </a>
+            </li>
+
+
+        </ul>
+    </div>
+</nav>
