@@ -28,7 +28,7 @@
                     <div>
                         <form method="POST" action="{% url 'remove_from_cart' %}">
                             {% csrf_token %}
-                            <input type="hidden" name="product_id" value="{{ product.id }}" />
+                            <input type="hidden" name="product_id" value="{{ product.id }}"/>
                             <button type="submit" class="close">
                                 <span>&times;</span>
                             </button>
@@ -43,4 +43,10 @@
         {% endwith %}
 
     {% endfor %}
+
+    <li class="d-flex justify-content-center">
+        <button type="button" class="btn btn-primary w-50 btn-lg">
+            Comprar
+        </button>
+    </li>
 </ul>

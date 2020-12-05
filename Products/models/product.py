@@ -55,4 +55,8 @@ class ProductImage(models.Model):
     externalUri = models.URLField(max_length=200, null=True, blank=True, verbose_name="Imagen externa")
 
     def url(self):
-        return self.image.url if self.image else self.externalUri
+        if self.externalUri:
+            return self.externalUri
+        if self.image:
+            return self.image.url
+        return '/static/no_image.jpg'
