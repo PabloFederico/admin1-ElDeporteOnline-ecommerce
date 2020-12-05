@@ -10,17 +10,7 @@
         <div class="producto-card-cuadroGrande">
 
             <div class="producto-card-cuadroImagen">
-                {% if product.images.all %}
-                {% with product.images.all.0 as first %}
-                    {% if first.image %}
-                    <img src="{{ product.images.all.0.image.url }}" style="height: 100%;width: 100%;" />
-                    {% else %}
-                    <img src="{{ product.images.all.0.externalUri }}" style="height: 100%;width: 100%;" />
-                    {% endif %}
-                {% endwith %}
-                {% else %}
-                SIN IMAGEN
-                {% endif%}
+                <img src="{{ product.cover_image }}" style="height: 100%;width: 100%;"/>
             </div>
 
             <div class="producto-card-cuadroBlanco p-1">

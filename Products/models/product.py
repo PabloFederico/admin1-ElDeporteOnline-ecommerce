@@ -27,6 +27,10 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    def cover_image(self):
+        image = self.images.first()
+        return image.url() if image else '/static/no_image.jpg'
+
 
 class ProductImage(models.Model):
     def path_and_rename(instance, filename):
@@ -49,3 +53,6 @@ class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
     image = models.ImageField(upload_to=path_and_rename,null=True, blank=True, verbose_name="Imagen")
     externalUri = models.URLField(max_length=200, null=True, blank=True, verbose_name="Imagen externa")
+
+    def url(self):
+        return self.image.url if self.image else self.externalUri

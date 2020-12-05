@@ -1,53 +1,57 @@
 {% extends 'base.html' %}
-{% block content %}  
 
-<div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-            {% for n in theproduct.images.all %}           
-            <div class="carousel-item{% if forloop.first %} active{% endif %} ">
-              {% if n.image %}
-              <img class="d-block w-100" src="{{ n.image.url }}" style="height: 300px;"/>             
-              {% else %}
-              <img class="d-block w-100" src="{{ n.externalUri }}" style="height: 300px;"/>
-              {% endif %}
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                {% if theproduct.images.count %}
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for n in theproduct.images.all %}
+                                <div class="carousel-item{% if forloop.first %} active{% endif %} ">
+                                    <img class="d-block w-100" src="{{ n.url }}" style="height: 300px;"/>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                           data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                           data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                {% else %}
+                    <img class="d-block w-100" src="{{ theproduct.cover_image }}"/>
+                {% endif %}
             </div>
-            {% endfor %}
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-       </div>
-      </div>
 
-          <div class="col-md-6">
-             <h1>{{theproduct}}</h1>
-             <span style="font-size: large">Descripción corta: {{ theproduct.short_description }}</span><br>
-             <span style="font-size: x-large">Precio: {{ theproduct.price }}</span> <br><br>
+            <div class="col-md-6">
+                <h1>{{ theproduct }}</h1>
+                <span style="font-size: large">{{ theproduct.short_description }}</span><br>
+                <span style="font-size: x-large">{{ theproduct.price }}</span> <br><br>
 
-              <form method="POST" action="{%  url 'add_to_cart' %}">
-                  {% csrf_token %}
-                  <input type="hidden" name="product_id" value="{{ theproduct.id }}" />
-                  <div class="form-group row ml-1">
-                      <label style="font-size: x-large" for="quantity">Cantidad: </label>
-                      <input id="quantity" type="number" min="1" value="1" name="quantity" class="form-control col-2 ml-4" />
-                  </div>
+                <form method="POST" action="{% url 'add_to_cart' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ theproduct.id }}"/>
+                    <div class="form-group row ml-1">
+                        <label style="font-size: x-large" for="quantity">Cantidad: </label>
+                        <input id="quantity" type="number" min="1" value="1" name="quantity"
+                               class="form-control col-2 ml-4"/>
+                    </div>
 
-                  <input type="submit" class="btn btn-success btn-block" value="Agregar al carrito" />
-              </form>
-          </div>
+                    <input type="submit" class="btn btn-success btn-block" value="Agregar al carrito"/>
+                </form>
+            </div>
 
+        </div>
+        <div class="row mt-5 border p-3">
+            <span>{{ theproduct.description | safe }} </span> <br>
+        </div>
     </div>
-    <div class="row mt-5 border p-3">
-        <span>{{ theproduct.description | safe }} </span> <br>
-    </div>
-</div>
 
 {% endblock content %}
