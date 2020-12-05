@@ -25,10 +25,16 @@ class Cart:
         Returns a list of the products in the cart, with the format:
             {"product": product_model, "quantity": number}
         """
-        return [{
-            "product": Product.objects.get(id=p[0]),
-            "quantity": p[1]
-        } for p in self.products]
+        data = []
+        for product_data in self.products:
+            product = Product.objects.filter(id=product_data[0]).first()
+            if not product:
+                continue
+            data.append({
+                "product": product,
+                "quantity": product_data[1]
+            })
+        return data
 
     def add_product(self, product, quantity):
         for i, data in enumerate(self.products):
