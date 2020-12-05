@@ -1,52 +1,63 @@
 <ul class="dropdown-menu dropdown-menu-right pre-scrollable p-3" style="width: 400px; max-height: 500px">
-    {% for product_data in cart.get_products %}
+    {% with cart.get_products as products %}
 
-        {% with product_data.product as product %}
+        {% if products %}
+            {% for product_data in products %}
 
-            <li>
-                <div class="row w-100">
-                    <div class="col-4">
-                        <img src="{{ product.cover_image }}" style="height: 100px;width: 100px;"/>
-                    </div>
+                {% with product_data.product as product %}
 
-                    <div class="col-7 align-middle" style="margin-bottom: auto; margin-top: auto">
-                        <div>
+                    <li>
+                        <div class="row w-100">
+                            <div class="col-4">
+                                <img src="{{ product.cover_image }}" style="height: 100px;width: 100px;"/>
+                            </div>
+
+                            <div class="col-7 align-middle" style="margin-bottom: auto; margin-top: auto">
+                                <div>
                         <span style="color: black;"
                               class="w-100 d-inline-block text-truncate h5">{{ product.name }}</span>
-                        </div>
+                                </div>
 
-                        <div style="font-size: large" class="w-100">
+                                <div style="font-size: large" class="w-100">
                         <span style="width: 50%; float: left; text-align: left; color: black">
                         {{ product_data.quantity }} x
                         </span>
-                            <span style="width: 50%; float: right; text-align: right; color: black">
+                                    <span style="width: 50%; float: right; text-align: right; color: black">
                             {{ product.price }}
                         </span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <form method="POST" action="{% url 'remove_from_cart' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product_id" value="{{ product.id }}"/>
+                                    <button type="submit" class="close">
+                                        <span>&times;</span>
+                                    </button>
+                                </form>
+                            </div>
+
                         </div>
-                    </div>
+                    </li>
 
-                    <div>
-                        <form method="POST" action="{% url 'remove_from_cart' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="product_id" value="{{ product.id }}"/>
-                            <button type="submit" class="close">
-                                <span>&times;</span>
-                            </button>
-                        </form>
-                    </div>
+                    <li class="dropdown-divider"></li>
 
-                </div>
+                {% endwith %}
+
+            {% endfor %}
+
+            <li class="d-flex justify-content-center">
+                <a type="button" class="btn btn-primary w-50 btn-lg" href="{% url 'buy' %}">
+                    Comprar
+                </a>
             </li>
 
-            <li class="dropdown-divider"></li>
+        {% else %}
+            <span class="d-flex justify-content-center">
+                No hay productos en el carrito
+            </span>
+        {% endif %}
 
-        {% endwith %}
-
-    {% endfor %}
-
-    <li class="d-flex justify-content-center">
-        <a type="button" class="btn btn-primary w-50 btn-lg" href="{% url 'buy' %}">
-            Comprar
-        </a>
-    </li>
+    {% endwith %}
 </ul>
