@@ -48,6 +48,7 @@ LIBRARIES = [
     'djmoney',
     'nested_inline',
     'tinymce',
+    'django_extensions',
 ]
 
 APPS = [

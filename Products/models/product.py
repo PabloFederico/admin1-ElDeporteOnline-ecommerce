@@ -1,8 +1,8 @@
-import os
 from decimal import Decimal
 from uuid import uuid4
 
 import django_heroku
+from django.core.exceptions import ValidationError
 from django.db import models
 from djmoney.models.fields import MoneyField
 from djmoney.models.validators import MinMoneyValidator
@@ -49,14 +49,13 @@ class ProductImage(models.Model):
         verbose_name = "imagen del producto"
         verbose_name_plural = "imagenes del producto"
 
-    description = models.CharField(max_length=255, verbose_name="descripcion")
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
-    image = models.ImageField(upload_to=path_and_rename,null=True, blank=True, verbose_name="Imagen")
+    image = models.ImageField(upload_to=path_and_rename, null=True, blank=True, verbose_name="Imagen")
     externalUri = models.URLField(max_length=200, null=True, blank=True, verbose_name="Imagen externa")
 
+    def clean(self):
+        if not self.image and not self.externalUri:
+            raise ValidationError("Tiene que subir una imágen o ingresar una url")
+
     def url(self):
-        if self.externalUri:
-            return self.externalUri
-        if self.image:
-            return self.image.url
-        return '/static/no_image.jpg'
+        return self.externalUri or self.image.url
