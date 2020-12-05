@@ -4,20 +4,27 @@
         {% with product_data.product as product %}
 
             <li>
-                <div style="width:100%;">
-                    <span style="color: black;"
-                          class="w-100 d-inline-block text-truncate h5">{{ product.name }}</span>
-                </div>
+                <div class="row w-100">
+                    <div class="col-4">
+                        <img src="{{ product.cover_image }}" style="height: 100px;width: 100px;"/>
+                    </div>
+                    <div class="col-8 align-middle" style="margin-bottom: auto; margin-top: auto">
+                        <div>
+                        <span style="color: black;"
+                              class="w-100 d-inline-block text-truncate h5">{{ product.name }}</span>
+                        </div>
 
-                <div style="width:100%; font-size: large">
-                    <span style="width: 50%; float: left; text-align: left; color: black">
-                    {{ product_data.quantity }} x
-                </span>
-                <span style="width: 50%; float: right; text-align: right; color: black">
-                    {{ product.price }}
-                </span>
+                        <div style="font-size: large" class="w-100">
+                        <span style="width: 50%; float: left; text-align: left; color: black">
+                        {{ product_data.quantity }} x
+                        </span>
+                            <span style="width: 50%; float: right; text-align: right; color: black">
+                            {{ product.price }}
+                        </span>
+                        </div>
+                    </div>
+                    <br>
                 </div>
-                <br>
             </li>
 
             <li class="dropdown-divider"></li>
