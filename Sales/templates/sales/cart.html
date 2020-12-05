@@ -8,7 +8,8 @@
                     <div class="col-4">
                         <img src="{{ product.cover_image }}" style="height: 100px;width: 100px;"/>
                     </div>
-                    <div class="col-8 align-middle" style="margin-bottom: auto; margin-top: auto">
+
+                    <div class="col-7 align-middle" style="margin-bottom: auto; margin-top: auto">
                         <div>
                         <span style="color: black;"
                               class="w-100 d-inline-block text-truncate h5">{{ product.name }}</span>
@@ -23,7 +24,17 @@
                         </span>
                         </div>
                     </div>
-                    <br>
+
+                    <div>
+                        <form method="POST" action="{% url 'remove_from_cart' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="product_id" value="{{ product.id }}" />
+                            <button type="submit" class="close">
+                                <span>&times;</span>
+                            </button>
+                        </form>
+                    </div>
+
                 </div>
             </li>
 

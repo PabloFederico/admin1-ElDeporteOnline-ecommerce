@@ -43,5 +43,9 @@ class Cart:
         self.products.append(new_product_data)
         self._save()
 
+    def remove_product(self, product):
+        self.products = list(filter(lambda x: x[0] != product.id, self.products))
+        self._save()
+
     def count(self):
         return len(self.products)

@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views import View
@@ -18,5 +17,17 @@ class AddToCartView(View):
         cart = Cart(request)
         cart.add_product(product, quantity)
 
-        messages.success(request, 'Producto agregado al carrito!')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+class RemoveFromCartView(View):
+
+    def post(self, request):
+        product_id = request.POST["product_id"]
+
+        product = get_object_or_404(Product, id=product_id)
+
+        cart = Cart(request)
+        cart.remove_product(product)
+
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
