@@ -1,41 +1,28 @@
-<ul class="dropdown-menu dropdown-menu-right pre-scrollable p-3" style="width: 300px; max-height: 500px">
-    <li><a href="#">HTMLfdsfsdfsd fds fdsf adf adsf dsa f</a>
-        fdsfds fds fsd fds f ds
-    </li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">CSS</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
-    <li class="dropdown-divider"></li>
-    <li><a href="#">JavaScript</a></li>
+<ul class="dropdown-menu dropdown-menu-right pre-scrollable p-3" style="width: 400px; max-height: 500px">
+    {% for product_data in cart.get_products %}
+
+        {% with product_data.product as product %}
+
+            <li>
+                <div style="width:100%;">
+                    <span style="color: black;"
+                          class="w-100 d-inline-block text-truncate h5">{{ product.name }}</span>
+                </div>
+
+                <div style="width:100%; font-size: large">
+                    <span style="width: 50%; float: left; text-align: left; color: black">
+                    {{ product_data.quantity }} x
+                </span>
+                <span style="width: 50%; float: right; text-align: right; color: black">
+                    {{ product.price }}
+                </span>
+                </div>
+                <br>
+            </li>
+
+            <li class="dropdown-divider"></li>
+
+        {% endwith %}
+
+    {% endfor %}
 </ul>

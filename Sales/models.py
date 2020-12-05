@@ -42,3 +42,6 @@ class Cart:
         new_product_data = (product.id, quantity)
         self.products.append(new_product_data)
         self._save()
+
+    def count(self):
+        return len(self.products)

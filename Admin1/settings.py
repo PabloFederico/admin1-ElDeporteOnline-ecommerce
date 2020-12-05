@@ -27,7 +27,6 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = django_heroku.os.path.join(BASE_DIR, 'static_root')
 
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = django_heroku.os.path.join(BASE_DIR, 'media')
 # Fin Agregado para imagenes
@@ -90,6 +89,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'Sales.context_processors.cart',
             ],
         },
     },

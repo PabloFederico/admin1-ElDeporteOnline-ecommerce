@@ -1,3 +1,17 @@
+<style>
+    .notify-bubble {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        padding: 2px 5px 2px 6px;
+        background-color: red;
+        color: white;
+        font-size: 0.65em;
+        border-radius: 50%;
+    }
+</style>
+
+
 <nav class="navbar navbar-expand navbar-dark bg-primary">
     <a class="navbar-brand" href="/">El deporte Online</a>
     <div id="navbarSupportedContent">
@@ -16,9 +30,10 @@
 
     <div class="dropdown w-100 float-right text-right mr-5">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            {% if cart.count %}<span class="notify-bubble">{{ cart.count }}</span>{% endif %}
             <i class="fas fa-shopping-cart text-white h3"></i>
         </button>
 
-        {%  include "sales/cart.html" %}
+        {% include "sales/cart.html" %}
     </div>
 </nav>
