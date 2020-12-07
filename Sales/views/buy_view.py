@@ -18,7 +18,7 @@ class BuyView(View):
         sale = Sale.objects.create()
         for entry in cart.get_products():
             product = Product.objects.get(pk=entry.get('product').id)
-            item = Item.objects.create(sale=sale,product=product, quantity=entry.get('quantity'))
+            item = Item.objects.create(sale=sale, product=product, quantity=entry.get('quantity'))
             items.append(item)
 
         sale.items.set(items)
