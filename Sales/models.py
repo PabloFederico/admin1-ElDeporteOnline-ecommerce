@@ -1,6 +1,7 @@
 from django.conf import settings
 
 from Products.models import Product
+from django.db import models
 
 
 class Cart:
@@ -74,3 +75,22 @@ class Cart:
 
     def count(self):
         return len(self.products)
+
+
+class Sale(models.Model):
+    """representa una compra"""
+    class Meta:
+        verbose_name = "Venta"
+        verbose_name_plural = "Ventas"
+
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.date.__str__()
+
+
+class Item(models.Model):
+    sale = models.ForeignKey(Sale, on_delete=models.CASCADE, related_name="items")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+
