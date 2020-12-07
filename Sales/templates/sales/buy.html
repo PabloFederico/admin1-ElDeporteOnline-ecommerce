@@ -8,4 +8,50 @@
 
     tambien mostrar el precio total (ver que hacer con precios en dolares -> multiplicar por un valor fijo?)
 
+    {% with cart.get_products as products %}
+
+        {% if products %}
+
+            <table>
+              <tr>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Precio Envio</th>
+                <th></th>
+              </tr>
+                {% for product_data in products %}
+                    {% with product_data.product as product %}
+                      <tr>
+                          <td><img src="{{ product.cover_image }}" style="height: 100px;width: 100px;"/></td>
+                          <td>{{ product.name }}</td>
+                          <td>{{ product.quantity }}</td>
+                          <td style="width: 100%; float: left; text-align: right;">{{ product.price }}</td>
+                          <td style="width: 100%; float: left; text-align: right;">{{ product.price }}</td>
+                        </tr>
+                    {% endwith %}
+                {% endfor %}
+
+            </table>
+
+        {% else %}
+            <span class="d-flex justify-content-center">
+                No hay productos en el carrito
+            </span>
+        {% endif %}
+
+    {% endwith %}
+
+        {% with cart.get_total as total %}
+          <div>
+              <spam>Total:</spam>
+              <spam style="width: 100%; float: left; text-align: right;">{{ total.total }}</spam>
+          </div>
+          <div>
+              <spam>Total Envio:</spam>
+              <spam style="width: 100%; float: left; text-align: right;">{{ total.totalEnvio }}</spam>
+          </div>
+        {% endwith %}
+
 {% endblock content %}

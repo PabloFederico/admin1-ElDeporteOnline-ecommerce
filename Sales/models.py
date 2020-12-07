@@ -36,6 +36,25 @@ class Cart:
             })
         return data
 
+    def get_total(self):
+        """
+        Returns a list of the products in the cart, with the format:
+            {"product": product_model, "quantity": number}
+        """
+        total = 0
+        totalEnvio = 0
+        for product_data in self.products:
+            product = Product.objects.filter(id=product_data[0]).first()
+            if not product:
+                continue
+            total = total + product.price * product_data[1]
+
+        data = {
+            "total": total,
+            "totalEnvio": totalEnvio
+        }
+        return data
+
     def add_product(self, product, quantity):
         for i, data in enumerate(self.products):
             if data[0] == product.id:
