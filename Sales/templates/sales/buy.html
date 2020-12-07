@@ -1,3 +1,27 @@
+<style>
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.fondo {
+  background-color: #737373;
+}
+
+</style>
+
 {% extends 'base.html' %}
 
 {% block content %}
@@ -19,7 +43,6 @@
                 <th>Cantidad</th>
                 <th>Precio</th>
                 <th>Precio Envio</th>
-                <th></th>
               </tr>
                 {% for product_data in products %}
                     {% with product_data.product as product %}
@@ -27,8 +50,8 @@
                           <td><img src="{{ product.cover_image }}" style="height: 100px;width: 100px;"/></td>
                           <td>{{ product.name }}</td>
                           <td>{{ product.quantity }}</td>
-                          <td style="width: 100%; float: left; text-align: right;">{{ product.price }}</td>
-                          <td style="width: 100%; float: left; text-align: right;">{{ product.price }}</td>
+                          <td style="text-align: right;">{{ product.price }}</td>
+                          <td style="text-align: right;">{{ product.priceEnvio }}</td>
                         </tr>
                     {% endwith %}
                 {% endfor %}
@@ -44,14 +67,20 @@
     {% endwith %}
 
         {% with cart.get_total as total %}
-          <div>
-              <spam>Total:</spam>
-              <spam style="width: 100%; float: left; text-align: right;">{{ total.total }}</spam>
+          <div class="row">
+          <div class="col-8" >
+          </div>
+          <div class="col-4">
+              <div class="row">
+                  <spam class="col-8"><b>Total:</b></spam>
+                  <spam class="col-4" style="text-align: right;">{{ total.total }}</spam>
+              </div>
+              <div class="row">
+                  <spam class="col-8"><b>Total Envio:</b></spam>
+                  <spam class="col-4" style="text-align: right;">{{ total.totalEnvio }}</spam>
+              </div>
           </div>
           <div>
-              <spam>Total Envio:</spam>
-              <spam style="width: 100%; float: left; text-align: right;">{{ total.totalEnvio }}</spam>
-          </div>
         {% endwith %}
 
 {% endblock content %}
