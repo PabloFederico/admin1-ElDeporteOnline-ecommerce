@@ -81,6 +81,16 @@ tr:nth-child(even) {
               </div>
           </div>
           <div>
+
+
+
+        {% if cart.get_products %}
+          <form action="" method="post">
+              {% csrf_token %}
+              <input type="submit" name="comprar" value="Realizar Compra" />
+          </form>
+        {% endif %}
+
         {% endwith %}
 
 {% endblock content %}
