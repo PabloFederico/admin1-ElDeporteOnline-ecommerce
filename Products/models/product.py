@@ -34,7 +34,7 @@ class Product(models.Model):
 
     def sale_price(self):
         # TODO: tener en cuenta precio en oferta cuando se implemente
-        if self.price.currency == 'ARS':
+        if self.price.currency.code == 'ARS':
             return self.price
 
         # convertir dolares a pesos

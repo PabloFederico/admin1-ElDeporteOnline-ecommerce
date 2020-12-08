@@ -1,4 +1,7 @@
+from decimal import Decimal
+
 from django.conf import settings
+from djmoney.models.fields import MoneyField
 
 from Products.models import Product
 from django.db import models
@@ -79,14 +82,23 @@ class Sale(models.Model):
         verbose_name = "Venta"
         verbose_name_plural = "Ventas"
 
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True, verbose_name="fecha")
+    shipping_price = MoneyField(max_digits=12, decimal_places=2, verbose_name="envio")
 
     def __str__(self):
         return self.date.__str__()
 
+    def total(self):
+        return sum([item.price for item in self.items.all()])
+
 
 class Item(models.Model):
     sale = models.ForeignKey(Sale, on_delete=models.CASCADE, related_name="items")
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField()
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, verbose_name="producto")
+    quantity = models.PositiveIntegerField(verbose_name="cantidad")
+    price = MoneyField(max_digits=12, decimal_places=2, verbose_name="precio pagado")
+    product_name = models.CharField(max_length=255, verbose_name="nombre del producto")  # por si se elimina el producto
+
+    def __str__(self):
+        return f"{self.quantity} x {self.product_name}"
 

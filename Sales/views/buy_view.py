@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views import View
 
-from Products.models import Product
 from Sales.models import Cart, Sale, Item
 
 
@@ -11,18 +10,19 @@ class BuyView(View):
         return render(request, 'sales/buy.html')
 
     def post(self, request):
-        # aca hay que recibir la compra y guardarla en la db
-        # tambien hay que vaciar el carrito
         cart = Cart(request)
         items = []
-        sale = Sale.objects.create()
+
+        shipping_price = cart.get_total()["totalEnvio"]
+        sale = Sale.objects.create(shipping_price=shipping_price)
+
         for entry in cart.get_products():
-            product = Product.objects.get(pk=entry.get('product').id)
-            item = Item.objects.create(sale=sale, product=product, quantity=entry.get('quantity'))
+            product = entry.get('product')
+            item = Item.objects.create(sale=sale, product=product, quantity=entry.get('quantity'),
+                                       product_name=product.name, price=product.sale_price())
             items.append(item)
 
         sale.items.set(items)
 
-        # sale.save()
         cart.clear()
         return render(request, 'sales/buy-complete.html')
