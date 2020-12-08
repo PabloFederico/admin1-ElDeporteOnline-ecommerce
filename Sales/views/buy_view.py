@@ -14,7 +14,8 @@ class BuyView(View):
         items = []
 
         shipping_price = cart.get_total()["totalEnvio"]
-        sale = Sale.objects.create(shipping_price=shipping_price)
+        sale = Sale.objects.create(shipping_price=shipping_price, name=request.POST.get("name"),
+                                   address=request.POST.get("address"))
 
         for entry in cart.get_products():
             product = entry.get('product')

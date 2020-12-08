@@ -1,24 +1,24 @@
 <style>
 
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
 
-.fondo {
-  background-color: #737373;
-}
+    .fondo {
+        background-color: #737373;
+    }
 
 </style>
 
@@ -31,23 +31,23 @@ tr:nth-child(even) {
         {% if products %}
 
             <table>
-              <tr>
-                <th>Imagen</th>
-                <th>Nombre</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-                <th>Sub Total</th>
-                <th>Precio Envio</th>
-              </tr>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Sub Total</th>
+                    <th>Precio Envio</th>
+                </tr>
                 {% for product_data in products %}
                     {% with product_data.product as product %}
-                      <tr>
-                          <td><img src="{{ product.cover_image }}" style="height: 100px;width: 100px;"/></td>
-                          <td>{{ product.name }}</td>
-                          <td style="text-align: right;">{{ product_data.quantity }}</td>
-                          <td style="text-align: right;">{{ product.sale_price }}</td>
-                          <td style="text-align: right;">{{ product_data.subTotal }}</td>
-                          <td style="text-align: right;">{{ product_data.priceEnvio }}</td>
+                        <tr>
+                            <td><img src="{{ product.cover_image }}" style="height: 100px;width: 100px;"/></td>
+                            <td>{{ product.name }}</td>
+                            <td style="text-align: right;">{{ product_data.quantity }}</td>
+                            <td style="text-align: right;">{{ product.sale_price }}</td>
+                            <td style="text-align: right;">{{ product_data.subTotal }}</td>
+                            <td style="text-align: right;">{{ product_data.priceEnvio }}</td>
                         </tr>
                     {% endwith %}
                 {% endfor %}
@@ -62,33 +62,50 @@ tr:nth-child(even) {
 
     {% endwith %}
 
-        {% with cart.get_total as total %}
-          <div class="row">
-          <div class="col-8" >
-          </div>
-          <div class="col-4">
-              <div class="row">
-                  <spam class="col-8"><b>Total:</b></spam>
-                  <spam class="col-4" style="text-align: right;">{{ total.total }}</spam>
-              </div>
-              <div class="row">
-                  <spam class="col-8"><b>Total Envio:</b></spam>
-                  <spam class="col-4" style="text-align: right;">{{ total.totalEnvio }}</spam>
-              </div>
-          </div>
-          </div>
-
-
-        {% if cart.get_products %}
-          <form action="" method="post" class="col-12">
-              {% csrf_token %}
-                <div class="float-right">
-                    <input type="submit" name="comprar" class="btn btn-primary btn-lg" value="Realizar Compra" />
+    {% with cart.get_total as total %}
+        <div class="row">
+            <div class="col-8">
+            </div>
+            <div class="col-4">
+                <div class="row">
+                    <span class="col-8"><b>Total:</b></span>
+                    <span class="col-4" style="text-align: right;">{{ total.total }}</span>
                 </div>
-          </form>
-        {% endif %}
+                <div class="row">
+                    <span class="col-8"><b>Total Envio:</b></span>
+                    <span class="col-4" style="text-align: right;">{{ total.totalEnvio }}</span>
+                </div>
+            </div>
+        </div>
+
+    {% endwith %}
+
+    <hr>
 
 
-        {% endwith %}
+
+
+    {% if cart.get_products %}
+        <form action="" method="post" class="col-12 mt-5 d-flex justify-content-center border p-5">
+            {% csrf_token %}
+
+            <div class="d-flex  flex-column justify-content-center" style="min-width: 600px">
+                <div class="form-group">
+                    <label style="font-size: x-large" for="name">Nombre: </label>
+                    <input id="name" name="name" class="form-control" required/>
+                </div>
+
+                <div class="form-group">
+                    <label style="font-size: x-large" for="address">Domicilio de entrega: </label>
+                    <input id="address" name="address" class="form-control" required/>
+                </div>
+
+                <div class="">
+                    <input type="submit" name="comprar" class="btn btn-primary btn-lg w-50" value="Realizar Compra"/>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+
 
 {% endblock content %}

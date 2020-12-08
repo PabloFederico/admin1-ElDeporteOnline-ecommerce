@@ -83,6 +83,8 @@ class Sale(models.Model):
         verbose_name_plural = "Ventas"
 
     date = models.DateTimeField(auto_now_add=True, verbose_name="fecha")
+    name = models.CharField(max_length=255, verbose_name="nombre del cliente")
+    address = models.CharField(max_length=255, verbose_name="domicilio de entrega")
     shipping_price = MoneyField(max_digits=12, decimal_places=2, verbose_name="envio")
 
     def __str__(self):

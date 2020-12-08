@@ -25,9 +25,9 @@ class ItemInline(admin.StackedInline):
 
 @admin.register(Sale)
 class SaleAdmin(admin.ModelAdmin):
-    list_display = ["date", "total", "shipping_price"]
-    search_fields = ['date']
-    readonly_fields = ["date", "total", "shipping_price"]
+    list_display = ["name", "date", "total", "shipping_price", "address"]
+    search_fields = ['name']
+    readonly_fields = ['name', "date", "total", "shipping_price", 'address']
     model = Sale
     inlines = [ItemInline]
 
