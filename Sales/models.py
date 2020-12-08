@@ -33,15 +33,14 @@ class Cart:
                 continue
             data.append({
                 "product": product,
-                "quantity": product_data[1]
+                "subTotal": product.price * product_data[1],
+                "quantity": product_data[1],
+                "priceEnvio": product.price * product_data[1] * 2
             })
+            """El 2 reprsenta una constante que aun no sabemos como va a funcioanr"""
         return data
 
     def get_total(self):
-        """
-        Returns a list of the products in the cart, with the format:
-            {"product": product_model, "quantity": number}
-        """
         total = 0
         totalEnvio = 0
         for product_data in self.products:
@@ -49,6 +48,8 @@ class Cart:
             if not product:
                 continue
             total = total + product.price * product_data[1]
+            totalEnvio = totalEnvio + product.price * product_data[1] * 2
+        """El 2 reprsenta una constante que aun no sabemos como va a funcioanr"""
 
         data = {
             "total": total,

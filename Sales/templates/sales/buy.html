@@ -42,6 +42,7 @@ tr:nth-child(even) {
                 <th>Nombre</th>
                 <th>Cantidad</th>
                 <th>Precio</th>
+                <th>Sub Total</th>
                 <th>Precio Envio</th>
               </tr>
                 {% for product_data in products %}
@@ -49,9 +50,10 @@ tr:nth-child(even) {
                       <tr>
                           <td><img src="{{ product.cover_image }}" style="height: 100px;width: 100px;"/></td>
                           <td>{{ product.name }}</td>
-                          <td>{{ product.quantity }}</td>
+                          <td style="text-align: right;">{{ product_data.quantity }}</td>
                           <td style="text-align: right;">{{ product.price }}</td>
-                          <td style="text-align: right;">{{ product.priceEnvio }}</td>
+                          <td style="text-align: right;">{{ product_data.subTotal }}</td>
+                          <td style="text-align: right;">{{ product_data.priceEnvio }}</td>
                         </tr>
                     {% endwith %}
                 {% endfor %}
@@ -80,16 +82,17 @@ tr:nth-child(even) {
                   <spam class="col-4" style="text-align: right;">{{ total.totalEnvio }}</spam>
               </div>
           </div>
-          <div>
-
 
 
         {% if cart.get_products %}
-          <form action="" method="post">
+          <form action="" method="post" class="col-12">
               {% csrf_token %}
-              <input type="submit" name="comprar" value="Realizar Compra" />
+                <div class="float-right">
+                    <input type="submit" name="comprar" class="btn btn-primary btn-lg" value="Realizar Compra" />
+                </div>
           </form>
         {% endif %}
+
 
         {% endwith %}
 
