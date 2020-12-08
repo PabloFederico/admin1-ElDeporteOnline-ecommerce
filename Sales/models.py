@@ -33,23 +33,18 @@ class Cart:
                 continue
             data.append({
                 "product": product,
-                "subTotal": product.price * product_data[1],
+                "subTotal": product.sale_price() * product_data[1],
                 "quantity": product_data[1],
-                "priceEnvio": product.price * product_data[1] * 2
+                "priceEnvio": product.shipping_price() * product_data[1]
             })
-            """El 2 reprsenta una constante que aun no sabemos como va a funcioanr"""
         return data
 
     def get_total(self):
         total = 0
         totalEnvio = 0
-        for product_data in self.products:
-            product = Product.objects.filter(id=product_data[0]).first()
-            if not product:
-                continue
-            total = total + product.price * product_data[1]
-            totalEnvio = totalEnvio + product.price * product_data[1] * 2
-        """El 2 reprsenta una constante que aun no sabemos como va a funcioanr"""
+        for product_data in self.get_products():
+            total = total + product_data["subTotal"]
+            totalEnvio = totalEnvio + product_data["priceEnvio"]
 
         data = {
             "total": total,

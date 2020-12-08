@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from djmoney.models.fields import MoneyField
 from djmoney.models.validators import MinMoneyValidator
+from moneyed import Money
 from tinymce import models as tinymce_models
 
 from Products.querysets.product_queryset import ProductQuerySet
@@ -30,6 +31,19 @@ class Product(models.Model):
     def cover_image(self):
         image = self.images.first()
         return image.url() if image else '/static/no_image.jpg'
+
+    def sale_price(self):
+        # TODO: tener en cuenta precio en oferta cuando se implemente
+        if self.price.currency == 'ARS':
+            return self.price
+
+        # convertir dolares a pesos
+        amount = self.price.amount * 150
+        return Money(amount, "ARS")
+
+    def shipping_price(self):
+        # TODO: meter calculo de envio cuando se implemente
+        return Money(50, "ARS")
 
 
 class ProductImage(models.Model):

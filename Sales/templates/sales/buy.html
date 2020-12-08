@@ -26,12 +26,6 @@ tr:nth-child(even) {
 
 {% block content %}
 
-    aca hay que mostrar los productos que se van a comprar (salen del carrito) con precio
-
-    para acceder a los productos del carrito se puede usar {{ cart.get_products }}
-
-    tambien mostrar el precio total (ver que hacer con precios en dolares -> multiplicar por un valor fijo?)
-
     {% with cart.get_products as products %}
 
         {% if products %}
@@ -51,7 +45,7 @@ tr:nth-child(even) {
                           <td><img src="{{ product.cover_image }}" style="height: 100px;width: 100px;"/></td>
                           <td>{{ product.name }}</td>
                           <td style="text-align: right;">{{ product_data.quantity }}</td>
-                          <td style="text-align: right;">{{ product.price }}</td>
+                          <td style="text-align: right;">{{ product.sale_price }}</td>
                           <td style="text-align: right;">{{ product_data.subTotal }}</td>
                           <td style="text-align: right;">{{ product_data.priceEnvio }}</td>
                         </tr>
@@ -81,6 +75,7 @@ tr:nth-child(even) {
                   <spam class="col-8"><b>Total Envio:</b></spam>
                   <spam class="col-4" style="text-align: right;">{{ total.totalEnvio }}</spam>
               </div>
+          </div>
           </div>
 
 
