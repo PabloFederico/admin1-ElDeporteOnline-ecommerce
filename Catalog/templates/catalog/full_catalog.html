@@ -2,30 +2,50 @@
 
 {% block content %}
 
-<style>
+    <style>
 
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
 
-.fondo {
-  background-color: #737373;
-}
+        .fondo {
+            background-color: #737373;
+        }
 
-</style>
+    </style>
 
+    <form method="GET" action="">
+        <div class="form-row">
+
+            <div class="form-group col-3 row m-2">
+                <label for="price_order" class="col" style="font-size: large">Ordenar por precio:</label>
+                <select id="price_order" name="orden_precio" class="form-control col">
+                    <option value="" {% if price_order == "" %}selected{% endif %}> -</option>
+                    <option value="asc" {% if price_order == "asc" %}selected{% endif %}>Ascendente</option>
+                    <option value="desc" {% if price_order == "desc" %}selected{% endif %}>Descendente</option>
+                </select>
+            </div>
+
+            <div class="form-group col-3 row m-2">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
+            </div>
+
+        </div>
+    </form>
 
     <ul class="fondo">
         {% for product in object_list %}
@@ -33,9 +53,9 @@ tr:nth-child(even) {
         {% endfor %}
     </ul>
 
-<hr>
+    <hr>
 
-{% comment %}
+    {% comment %}
 queda para despues, cuando hagamos en formato cards
 
 <table>
