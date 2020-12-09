@@ -4,6 +4,7 @@ from uuid import uuid4
 import django_heroku
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Exists, OuterRef
 from djmoney.models.fields import MoneyField
 from djmoney.models.validators import MinMoneyValidator
 from moneyed import Money
@@ -44,6 +45,10 @@ class Product(models.Model):
     def shipping_price(self):
         # TODO: meter calculo de envio cuando se implemente
         return Money(50, "ARS")
+
+    def variants_with_values(self):
+        from Products.models import ProductVariantValue
+        return self.variants.filter(Exists(ProductVariantValue.objects.filter(variant__id=OuterRef('pk'))))
 
 
 class ProductImage(models.Model):
