@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
-from Sales.models import Cart, Sale, Item
+from Sales.models import Cart, Sale, Item, ItemVariant
 
 
 class BuyView(View):
@@ -11,7 +11,9 @@ class BuyView(View):
 
     def post(self, request):
         cart = Cart(request)
-        items = []
+
+        if cart.count() == 0:
+            return redirect("full_catalog")
 
         shipping_price = cart.get_total()["totalEnvio"]
         sale = Sale.objects.create(shipping_price=shipping_price, name=request.POST.get("name"),
@@ -21,9 +23,8 @@ class BuyView(View):
             product = entry.get('product')
             item = Item.objects.create(sale=sale, product=product, quantity=entry.get('quantity'),
                                        product_name=product.name, price=product.sale_price())
-            items.append(item)
-
-        sale.items.set(items)
+            for variant in entry["variants"]:
+                ItemVariant.objects.create(item=item, variant=variant, variant_name=str(variant))
 
         cart.clear()
         return render(request, 'sales/buy-complete.html')

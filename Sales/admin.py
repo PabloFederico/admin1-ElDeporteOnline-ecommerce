@@ -1,26 +1,21 @@
 from django.contrib import admin
 
-# Register your models here.
-from nested_inline.admin import NestedStackedInline, NestedModelAdmin
-
 from Sales.models import Sale, Item
+
+
+# Register your models here.
 
 
 class ItemInline(admin.StackedInline):
     model = Item
     extra = 0
 
-    def has_add_permission(self, request, obj):
-        return False
+    fields = ('product_name', 'quantity', 'price', 'variantes')
+    readonly_fields = ('product_name', 'quantity', 'price', 'variantes')
 
-    def has_change_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_view_permission(self, request, obj=None):
-        return True
+    def variantes(self, item):
+        data = [variant.variant_name for variant in item.variants.all()]
+        return "\n".join(data)
 
 
 @admin.register(Sale)

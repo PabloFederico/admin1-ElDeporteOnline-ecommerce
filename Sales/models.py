@@ -118,3 +118,12 @@ class Item(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.product_name}"
+
+
+class ItemVariant(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name="variants")
+    variant = models.ForeignKey(ProductVariantValue, on_delete=models.SET_NULL, null=True, verbose_name="variante")
+    variant_name = models.CharField(max_length=255, verbose_name="nombre de la variante")  # por si se elimina la variante
+
+    def __str__(self):
+        return f"{self.variant_name}"

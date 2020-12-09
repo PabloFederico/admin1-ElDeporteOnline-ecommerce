@@ -43,7 +43,15 @@
                     {% with product_data.product as product %}
                         <tr>
                             <td><img src="{{ product.cover_image }}" style="height: 100px;width: 100px;"/></td>
-                            <td>{{ product.name }}</td>
+                            <td>{{ product.name }}
+                                <span style="color: black;"
+                                      class="w-100 d-inline-block text-truncate">
+                                        {% for variant in product_data.variants %}
+                                            <br>
+                                            {{ variant }}
+                                        {% endfor %}
+                                    </span>
+                            </td>
                             <td style="text-align: right;">{{ product_data.quantity }}</td>
                             <td style="text-align: right;">{{ product.sale_price }}</td>
                             <td style="text-align: right;">{{ product_data.subTotal }}</td>
@@ -79,11 +87,6 @@
         </div>
 
     {% endwith %}
-
-    <hr>
-
-
-
 
     {% if cart.get_products %}
         <form action="" method="post" class="col-12 mt-5 d-flex justify-content-center border p-5">
