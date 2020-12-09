@@ -1,10 +1,8 @@
-from decimal import Decimal
-
 from django.conf import settings
+from django.db import models
 from djmoney.models.fields import MoneyField
 
-from Products.models import Product
-from django.db import models
+from Products.models import Product, ProductVariantValue
 
 
 class Cart:
@@ -13,15 +11,19 @@ class Cart:
     def __init__(self, request):
         self.request = request
         self.products = []
+        self._products_cached = None
         self._load()
 
     def _save(self):
+        self._products_cached = None
         self.request.session[settings.CART_SESSION_VARIABLE] = self.products
 
     def _load(self):
+        self._products_cached = None
         self.products = self.request.session.get(settings.CART_SESSION_VARIABLE, [])
 
     def clear(self):
+        self._products_cached = None
         self.request.session[settings.CART_SESSION_VARIABLE] = []
 
     def get_products(self):
@@ -29,17 +31,24 @@ class Cart:
         Returns a list of the products in the cart, with the format:
             {"product": product_model, "quantity": number}
         """
+        if self._products_cached:
+            return self._products_cached
+
         data = []
         for product_data in self.products:
             product = Product.objects.filter(id=product_data[0]).first()
             if not product:
                 continue
+            quantity = product_data[1]
             data.append({
                 "product": product,
-                "subTotal": product.sale_price() * product_data[1],
-                "quantity": product_data[1],
-                "priceEnvio": product.shipping_price() * product_data[1]
+                "subTotal": product.sale_price() * quantity,
+                "quantity": quantity,
+                "priceEnvio": product.shipping_price() * quantity,
+                "variants": ProductVariantValue.objects.filter(id__in=product_data[2]),
             })
+
+        self._products_cached = data
         return data
 
     def get_total(self):
@@ -55,16 +64,17 @@ class Cart:
         }
         return data
 
-    def add_product(self, product, quantity):
+    def add_product(self, product, quantity, variants):
+        variant_ids = list(sorted(map(lambda v: v.id, variants)))
         for i, data in enumerate(self.products):
-            if data[0] == product.id:
+            if data[0] == product.id and data[2] == variant_ids:
                 # product already in cart
-                new_product_data = (product.id, quantity + data[1])
+                new_product_data = [product.id, quantity + data[1], variant_ids]
                 self.products[i] = new_product_data
                 self._save()
                 return
 
-        new_product_data = (product.id, quantity)
+        new_product_data = [product.id, quantity, variant_ids]
         self.products.append(new_product_data)
         self._save()
 
@@ -73,11 +83,12 @@ class Cart:
         self._save()
 
     def count(self):
-        return len(self.products)
+        return len(self.get_products())
 
 
 class Sale(models.Model):
     """representa una compra"""
+
     class Meta:
         verbose_name = "Venta"
         verbose_name_plural = "Ventas"
@@ -103,4 +114,3 @@ class Item(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.product_name}"
-

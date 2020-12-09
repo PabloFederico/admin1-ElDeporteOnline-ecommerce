@@ -13,4 +13,4 @@ class ProductVariantValue(models.Model):
                                 verbose_name="variante de producto")
 
     def __str__(self):
-        return f"{self.variant.name}: {self.name}"
+        return f"{self.variant.name.capitalize()}: {self.name.capitalize()}"

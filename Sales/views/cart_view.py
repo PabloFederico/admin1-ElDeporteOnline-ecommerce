@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views import View
 
-from Products.models import Product
+from Products.models import Product, ProductVariantValue
 from Sales.models import Cart
 
 
@@ -14,8 +14,14 @@ class AddToCartView(View):
 
         product = get_object_or_404(Product, id=product_id)
 
+        variants = []
+        for variant in product.variants_with_values():
+            variant_id = request.POST[f"variant_{variant.id}"]
+            variant_value = get_object_or_404(ProductVariantValue, id=variant_id)
+            variants.append(variant_value)
+
         cart = Cart(request)
-        cart.add_product(product, quantity)
+        cart.add_product(product, quantity, variants)
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

@@ -14,8 +14,15 @@
 
                             <div class="col-7 align-middle" style="margin-bottom: auto; margin-top: auto">
                                 <div>
-                        <span style="color: black;"
-                              class="w-100 d-inline-block text-truncate h5">{{ product.name }}</span>
+                                    <span style="color: black;"
+                                          class="w-100 d-inline-block text-truncate h5">{{ product.name }}</span> <br>
+                                    <span style="color: black;"
+                                          class="w-100 d-inline-block text-truncate">
+                                        {% for variant in product_data.variants %}
+                                            {% if not forloop.first %}<br>{% endif %}
+                                            {{ variant }}
+                                        {% endfor %}
+                                    </span>
                                 </div>
 
                                 <div style="font-size: large" class="w-100">
