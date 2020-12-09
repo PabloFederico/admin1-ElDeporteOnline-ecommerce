@@ -33,7 +33,7 @@ class RemoveFromCartView(View):
         variant_ids = request.POST["variants"].split(",")
 
         product = get_object_or_404(Product, id=product_id)
-        variants = [get_object_or_404(ProductVariantValue, id=variant_id) for variant_id in variant_ids]
+        variants = [get_object_or_404(ProductVariantValue, id=variant_id) for variant_id in variant_ids if variant_id]
 
         cart = Cart(request)
         cart.remove_product(product, variants)
