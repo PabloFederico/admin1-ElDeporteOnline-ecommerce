@@ -65,7 +65,7 @@ class Cart:
         return data
 
     def add_product(self, product, quantity, variants):
-        variant_ids = list(sorted(map(lambda v: v.id, variants)))
+        variant_ids = self._map_variants(variants)
         for i, data in enumerate(self.products):
             if data[0] == product.id and data[2] == variant_ids:
                 # product already in cart
@@ -78,12 +78,16 @@ class Cart:
         self.products.append(new_product_data)
         self._save()
 
-    def remove_product(self, product):
-        self.products = list(filter(lambda x: x[0] != product.id, self.products))
+    def remove_product(self, product, variants):
+        variant_ids = self._map_variants(variants)
+        self.products = list(filter(lambda x: x[0] != product.id or x[2] != variant_ids, self.products))
         self._save()
 
     def count(self):
         return len(self.get_products())
+
+    def _map_variants(self, variants):
+        return list(sorted(map(lambda v: v.id, variants)))
 
 
 class Sale(models.Model):

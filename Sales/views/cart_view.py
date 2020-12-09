@@ -30,10 +30,12 @@ class RemoveFromCartView(View):
 
     def post(self, request):
         product_id = request.POST["product_id"]
+        variant_ids = request.POST["variants"].split(",")
 
         product = get_object_or_404(Product, id=product_id)
+        variants = [get_object_or_404(ProductVariantValue, id=variant_id) for variant_id in variant_ids]
 
         cart = Cart(request)
-        cart.remove_product(product)
+        cart.remove_product(product, variants)
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

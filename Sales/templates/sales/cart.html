@@ -26,12 +26,12 @@
                                 </div>
 
                                 <div style="font-size: large" class="w-100">
-                        <span style="width: 50%; float: left; text-align: left; color: black">
-                        {{ product_data.quantity }} x
-                        </span>
+                                    <span style="width: 50%; float: left; text-align: left; color: black">
+                                        {{ product_data.quantity }} x
+                                    </span>
                                     <span style="width: 50%; float: right; text-align: right; color: black">
-                            {{ product.price }}
-                        </span>
+                                        {{ product.price }}
+                                     </span>
                                 </div>
                             </div>
 
@@ -39,6 +39,7 @@
                                 <form method="POST" action="{% url 'remove_from_cart' %}">
                                     {% csrf_token %}
                                     <input type="hidden" name="product_id" value="{{ product.id }}"/>
+                                    <input type="hidden" name="variants" value="{% for variant in product_data.variants %}{% if not forloop.first %},{% endif %}{{ variant.id }}{% endfor %}"/>
                                     <button type="submit" class="close">
                                         <span>&times;</span>
                                     </button>
