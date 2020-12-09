@@ -15,7 +15,7 @@ class ItemInline(admin.StackedInline):
 
     def variantes(self, item):
         data = [variant.variant_name for variant in item.variants.all()]
-        return "\n".join(data)
+        return "\n".join(data) or " - "
 
 
 @admin.register(Sale)
