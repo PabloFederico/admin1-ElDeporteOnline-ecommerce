@@ -51,6 +51,15 @@ class Product(models.Model):
         return self.variants.filter(Exists(ProductVariantValue.objects.filter(variant__id=OuterRef('pk'))))
 
 
+class ProductVideo(models.Model):
+    class Meta:
+        verbose_name = "video del producto"
+        verbose_name_plural = "videos del producto"
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="videos")
+    externalUri = models.URLField(max_length=200, null=True, blank=True, verbose_name="Video externo")
+
+
 class ProductImage(models.Model):
     def path_and_rename(instance, filename):
         upload_to = 'images/products/'
