@@ -5,12 +5,19 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                {% if theproduct.images.count %}
+                {% if theproduct.images.count or theproduct.videos.count %}
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             {% for n in theproduct.images.all %}
                                 <div class="carousel-item{% if forloop.first %} active{% endif %} ">
                                     <img class="d-block w-100" src="{{ n.url }}" style="height: 300px;"/>
+                                </div>
+                            {% endfor %}
+                            {% for n in theproduct.videos.all %}
+                                <div class="carousel-item">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="{{n.externalUri}}" allowfullscreen></iframe>
+                                    </div>
                                 </div>
                             {% endfor %}
                         </div>
