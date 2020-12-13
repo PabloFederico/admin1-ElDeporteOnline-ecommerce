@@ -14,7 +14,7 @@
                                 </div>
                             {% endfor %}
                             {% for n in theproduct.videos.all %}
-                                <div class="carousel-item">
+                                <div class="carousel-item{% if not theproduct.images.count and forloop.first %} active{% endif %}">
                                     <div class="embed-responsive embed-responsive-16by9">
                                         <iframe class="embed-responsive-item" src="{{n.externalUri}}" allowfullscreen></iframe>
                                     </div>
