@@ -43,7 +43,15 @@
             <div class="col-md-6">
                 <h1>{{ theproduct }}</h1>
                 <span style="font-size: large">{{ theproduct.short_description }}</span><br>
-                <span style="font-size: x-large">{{ theproduct.price }}</span> <br>
+                {% if not theproduct.discount %}
+                    <span style="font-size: x-large">{{ theproduct.price }}</span> <br>
+                {% else %}
+                    <div>
+                        <span style="font-size: x-large; text-decoration: line-through; vertical-align: middle">{{ theproduct.price }}</span>
+                        <span style="vertical-align: middle" class="badge badge-success">{{ theproduct.discount }}%</span> <br>
+                    </div>
+                    <span style="font-size: x-large">{{ theproduct.price_with_discount }}</span> <br>
+                {% endif %}
 
                 <form method="POST" action="{% url 'add_to_cart' %}">
                     {% csrf_token %}

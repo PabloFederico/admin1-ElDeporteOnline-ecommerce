@@ -23,9 +23,12 @@
                           class="w-100 d-inline-block text-truncate">{{ product.short_description }}</span>
                 </div>
 
-                <div style="width:100%;">
-                        <span style="width: 100%; float: left; text-align: right; color: black" class="h5">
-                            <b>{{ product.price }}</b>
+                <div style="width:100%; text-align: right">
+                        {% if product.discount %}
+                            <span style="vertical-align: middle" class="badge badge-danger"><b>OFERTA!</b></span>
+                        {% endif %}
+                        <span style="color: black; vertical-align: middle" class="h5">
+                            <b>{{ product.price_with_discount }}</b>
                         </span>
                 </div>
             </div>
