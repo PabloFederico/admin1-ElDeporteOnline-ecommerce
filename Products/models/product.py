@@ -3,6 +3,7 @@ from uuid import uuid4
 
 import django_heroku
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import Exists, OuterRef
 from djmoney.models.fields import MoneyField
@@ -23,6 +24,7 @@ class Product(models.Model):
     description = tinymce_models.HTMLField(verbose_name="descripcion larga")
     price = MoneyField(max_digits=12, decimal_places=2, validators=[MinMoneyValidator(Decimal("0.01"))],
                        verbose_name="precio")
+    discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)] )
 
     objects = ProductQuerySet.as_manager()
 
@@ -33,14 +35,18 @@ class Product(models.Model):
         image = self.images.first()
         return image.url() if image else '/static/no_image.jpg'
 
+    def price_with_discount(self):
+        # da el precio con descuento en la moneda del producto
+        return self.price * (100 - self.discount) / 100
+
     def sale_price(self):
-        # TODO: tener en cuenta precio en oferta cuando se implemente
+        # da el precio con descuento en pesos argentinos
+
         if self.price.currency.code == 'ARS':
-            return self.price
+            return self.price_with_discount()
 
         # convertir dolares a pesos
-        amount = self.price.amount * 150
-        return Money(amount, "ARS")
+        return Money(self.price_with_discount().amount * 150, "ARS")
 
     def shipping_price(self):
         # TODO: meter calculo de envio cuando se implemente
