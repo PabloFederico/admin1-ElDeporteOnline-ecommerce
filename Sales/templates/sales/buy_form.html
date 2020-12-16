@@ -1,0 +1,113 @@
+{% load static %}
+
+<form action="" method="post" class="col-12 mt-5 d-flex justify-content-center border p-5">
+    {% csrf_token %}
+
+    <div class="d-flex flex-column justify-content-center" style="min-width: 600px">
+        <div class="form-group">
+            <label style="font-size: x-large" for="name">Nombre: </label>
+            <input id="name" name="name" class="form-control" required/>
+        </div>
+
+        <div class="form-group">
+            <label style="font-size: x-large" for="address">Domicilio de entrega: </label>
+            <input id="address" name="address" class="form-control" required/>
+        </div>
+
+        <div class="form-group row" id="card-number-field">
+            <div class="col-9">
+                <label style="font-size: x-large" for="cardNumber">Número de tarjeta</label>
+                <input class="form-control" id="cardNumber" name="cardNumber" required>
+            </div>
+            <div class="form-group col-3 d-flex align-items-end m-0" id="credit_cards">
+                <img src="{% static 'sales/visa.jpg' %}" id="visa" style="display: none">
+                <img src="{% static 'sales/mastercard.jpg' %}" id="mastercard" style="display: none">
+                <img src="{% static 'sales/amex.jpg' %}" id="amex" style="display: none">
+            </div>
+        </div>
+
+        <div class="form-group owner row">
+            <div class="col">
+                <label style="font-size: x-large" for="expiry">Vencimiento:</label>
+                <input class="form-control" id="expiry" name="expiry" required>
+            </div>
+            <div class="col">
+                <label style="font-size: x-large" class="col pl-0" for="cvc">Código de seguridad:</label>
+                <input type="text" class="form-control col" id="cvc" name="cvc" required>
+            </div>
+        </div>
+
+        <div class="">
+            <input type="submit" name="comprar" id="submit" class="btn btn-primary btn-lg w-50"
+                   value="Realizar Compra"/>
+        </div>
+    </div>
+</form>
+
+{% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/payform@1.4.0/dist/payform.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let cardNumber = document.getElementById('cardNumber');
+            payform.cardNumberInput(cardNumber);
+
+            let expiry = document.getElementById('expiry');
+            payform.expiryInput(expiry);
+
+            let cvc = document.getElementById('cvc');
+            payform.cvcInput(cvc);
+
+            let mastercard = $("#mastercard");
+            let visa = $("#visa");
+            let amex = $("#amex");
+
+            let cardNumberField = $('#cardNumber');
+
+            cardNumberField.keyup(function () {
+                amex.hide();
+                visa.hide();
+                mastercard.hide();
+
+                let card_type = payform.parseCardType(cardNumberField.val());
+
+                if (card_type == 'visa') {
+                    visa.show();
+                } else if (card_type == 'amex') {
+                    amex.show();
+                } else if (payform.parseCardType(cardNumberField.val()) == 'mastercard') {
+                    mastercard.show();
+                }
+            });
+
+
+            $("#submit").click(function (e) {
+                let isCardValid = payform.validateCardNumber($('#cardNumber').val());
+                let isCvcValid = payform.validateCardCVC($('#cvc').val());
+                let expiry = payform.parseCardExpiry($("#expiry").val());
+                let isExpiryValid = payform.validateCardExpiry(expiry.month, expiry.year);
+
+                if (isExpiryValid) {
+                    $("#expiry").removeClass("is-invalid");
+                } else {
+                    $("#expiry").addClass("is-invalid");
+                }
+
+                if (isCardValid) {
+                    $("#cardNumber").removeClass("is-invalid");
+                } else {
+                    $("#cardNumber").addClass("is-invalid");
+                }
+
+                if (isCvcValid) {
+                    $("#cvc").removeClass("is-invalid");
+                } else {
+                    $("#cvc").addClass("is-invalid");
+                }
+
+                return isCardValid && isCvcValid && isExpiryValid;
+            });
+
+        }, false);
+    </script>
+
+{% endblock %}

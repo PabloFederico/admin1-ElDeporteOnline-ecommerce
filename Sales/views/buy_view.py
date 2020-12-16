@@ -7,6 +7,10 @@ from Sales.models import Cart, Sale, Item, ItemVariant
 class BuyView(View):
 
     def get(self, request):
+        cart = Cart(request)
+        if cart.count() == 0:
+            return redirect("full_catalog")
+
         return render(request, 'sales/buy.html')
 
     def post(self, request):
