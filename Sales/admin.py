@@ -22,7 +22,7 @@ class ItemInline(admin.StackedInline):
 class SaleAdmin(admin.ModelAdmin):
     list_display = ["name", "date", "total", "shipping_price", "address"]
     search_fields = ['name']
-    readonly_fields = ['name', "date", "total", "shipping_price", 'address']
+    readonly_fields = ['name', "date", "total", "shipping_price", 'address', 'pago']
     model = Sale
     inlines = [ItemInline]
 
@@ -37,5 +37,8 @@ class SaleAdmin(admin.ModelAdmin):
 
     def has_view_permission(self, request, obj=None):
         return True
+
+    def pago(self, sale):
+        return str(sale.payment)
 
 

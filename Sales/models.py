@@ -123,7 +123,25 @@ class Item(models.Model):
 class ItemVariant(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name="variants")
     variant = models.ForeignKey(ProductVariantValue, on_delete=models.SET_NULL, null=True, verbose_name="variante")
-    variant_name = models.CharField(max_length=255, verbose_name="nombre de la variante")  # por si se elimina la variante
+    variant_name = models.CharField(max_length=255,
+                                    verbose_name="nombre de la variante")  # por si se elimina la variante
 
     def __str__(self):
         return f"{self.variant_name}"
+
+
+class SalePayment(models.Model):
+    CASH = "cash"
+    CARD = "card"
+    PAYMENT_TYPES = [(x, x) for x in [CASH, CARD]]
+
+    sale = models.OneToOneField(Sale, on_delete=models.CASCADE, related_name="payment")
+    payment_type = models.CharField(max_length=4, choices=PAYMENT_TYPES, default=CASH, verbose_name="Método de pago")
+    card = models.CharField(max_length=255, null=True)
+    cvc = models.CharField(max_length=255, null=True)
+    expiry = models.CharField(max_length=255, null=True)
+
+    def __str__(self):
+        if self.payment_type == self.CASH:
+            return "Efectivo"
+        return f"Tarjeta:\n\nNúmero: {self.card}\nVencimiento: {self.expiry}\nCódigo de seguridad: {self.cvc}"
