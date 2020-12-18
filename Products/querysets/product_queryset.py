@@ -1,6 +1,5 @@
 from django.db import models
-from django.db.models import F, ExpressionWrapper, DecimalField
-
+from django.db.models import F, Q, ExpressionWrapper, DecimalField
 
 class ProductQuerySet(models.QuerySet):
 
@@ -13,3 +12,8 @@ class ProductQuerySet(models.QuerySet):
 
         sign = "" if order == "asc" else "-"
         return self.order_by(sign + 'price_currency', sign + 'price_sale')
+
+    def filter_by_text(self, filtro):
+        if not filtro:
+            return self
+        return self.filter(Q(name__contains=filtro) | Q(description__contains=filtro) | Q(short_description__contains=filtro))

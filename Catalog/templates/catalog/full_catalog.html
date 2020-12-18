@@ -39,6 +39,11 @@
             </div>
 
             <div class="form-group col-3 row m-2">
+                <label for="filtro" class="col" style="font-size: large">Filtro:</label>
+                <input id="filtro" name="filter" class="form-control col"  value="{{ filter }}">
+            </div>
+
+            <div class="form-group col-3 row m-2">
                 <div class="col">
                     <button type="submit" class="btn btn-primary">Filtrar</button>
                 </div>
@@ -49,13 +54,15 @@
 
     <ul class="fondo">
         {% for product in object_list %}
-            {% include "catalog/product_card.html" with product=product %}
+            {% if product.count != 0 %}
+                {% include "catalog/product_card.html" with product=product %}
+            {% endif %}
         {% endfor %}
     </ul>
 
-    <hr>
+<hr>
 
-    {% comment %}
+{% comment %}
 queda para despues, cuando hagamos en formato cards
 
 <table>

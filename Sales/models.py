@@ -36,7 +36,7 @@ class Cart:
 
         data = []
         for product_data in self.products:
-            product = Product.objects.filter(id=product_data[0]).first()
+            product = Product.objects.first()
             if not product:
                 continue
             quantity = product_data[1]
