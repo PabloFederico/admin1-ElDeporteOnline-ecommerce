@@ -16,4 +16,4 @@ class ProductQuerySet(models.QuerySet):
     def filter_by_text(self, filtro):
         if not filtro:
             return self
-        return self.filter(Q(name__contains=filtro) | Q(description__contains=filtro) | Q(short_description__contains=filtro))
+        return self.filter(Q(name__icontains=filtro) | Q(description__icontains=filtro) | Q(short_description__icontains=filtro))
