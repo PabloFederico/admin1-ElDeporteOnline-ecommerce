@@ -10,6 +10,7 @@ from djmoney.models.fields import MoneyField
 from djmoney.models.validators import MinMoneyValidator
 from moneyed import Money
 from tinymce import models as tinymce_models
+from Products.models import Units
 
 from Products.querysets.product_queryset import ProductQuerySet
 
@@ -25,6 +26,12 @@ class Product(models.Model):
     price = MoneyField(max_digits=12, decimal_places=2, validators=[MinMoneyValidator(Decimal("0.01"))],
                        verbose_name="precio")
     discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)] )
+
+    width = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    height = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    depth = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+
+    constante = models.IntegerField(default=0, validators=[MinValueValidator(0)])
 
     objects = ProductQuerySet.as_manager()
 
@@ -50,7 +57,7 @@ class Product(models.Model):
 
     def shipping_price(self):
         # TODO: meter calculo de envio cuando se implemente
-        return Money(50, "ARS")
+        return Money(self.width * self.depth * self.height * self.constante, "ARS")
 
     def variants_with_values(self):
         from Products.models import ProductVariantValue
