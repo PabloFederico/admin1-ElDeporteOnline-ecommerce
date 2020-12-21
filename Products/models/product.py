@@ -27,6 +27,24 @@ LENGTH_UNITS = [
 ]
 
 
+def convertir_a_kilogramos(valor, unidad):
+    if unidad == "Gramos":
+        return valor / 1000
+    if unidad == "Kilogramos":
+        return valor
+    if unidad == "Libras":
+        return valor * 0.453592
+
+
+def convertir_a_metros(valor, unidad):
+    if unidad == "Metros":
+        return valor
+    if unidad == "Centimetros":
+        return valor / 100
+    if unidad == "Pies":
+        return valor * 0.3048
+
+
 class Product(models.Model):
     class Meta:
         verbose_name = "producto"
@@ -72,7 +90,11 @@ class Product(models.Model):
 
     def shipping_price(self):
         # TODO: meter calculo de envio cuando se implemente
-        multiplicador = max([1, self.width * self.depth * self.height * self.weight])
+        ancho = convertir_a_metros(self.width, self.width_unit)
+        alto = convertir_a_metros(self.height, self.height_unit)
+        profundidad = convertir_a_metros(self.depth, self.depth_unit)
+        peso = convertir_a_kilogramos(self.weight, self.weight_unit)
+        multiplicador = max([1, ancho * alto * profundidad * peso])
         valor = 50
         return Money(multiplicador * valor, "ARS")
 
