@@ -1,3 +1,4 @@
+import statistics
 from decimal import Decimal
 from uuid import uuid4
 
@@ -71,6 +72,19 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    def id_as_string(self):
+        return str(self.id)
+
+    def rating_mean(self):
+        if not self.ratings.values():
+            return 0
+        else:
+            values = []
+            for it in self.ratings.values():
+                values.append(it['value'])
+            resultado = statistics.mean(values)
+            return round(resultado, 2)
+
     def cover_image(self):
         image = self.images.first()
         return image.url() if image else '/static/no_image.jpg'
@@ -110,6 +124,15 @@ class ProductVideo(models.Model):
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="videos")
     externalUri = models.URLField(max_length=200, null=True, blank=True, verbose_name="Video externo")
+
+
+class ProductRating(models.Model):
+    class Meta:
+        verbose_name = "rating del producto"
+        verbose_name_plural = "ratings del producto"
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="ratings")
+    value = models.DecimalField(max_digits=3, decimal_places=2)
 
 
 class ProductImage(models.Model):

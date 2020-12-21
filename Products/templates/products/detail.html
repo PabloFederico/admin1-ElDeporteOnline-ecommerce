@@ -53,6 +53,44 @@
                     <span style="font-size: x-large">{{ theproduct.price_with_discount }}</span> <br>
                 {% endif %}
 
+                <div id="rating" class="rating" style="font-size: 32px" ></div>
+                <style>
+                    .rate-base-layer
+                    {
+                        color: #aaa;
+                    }
+                    .rate-hover-layer
+                    {
+                        color: gold;
+                    }
+                    .rate-select-layer{
+                        color: gold;
+                    }
+                </style>
+
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var options = {
+                            {% if theproduct.id_as_string in request.session.votados %}
+                            readonly: true,
+                            {% endif %}
+                            max_value: 5,
+                            step_size: 0.5,
+                            initial_value: "{{ theproduct.rating_mean }}".replace(",","."),
+                            change_once: true,
+                            ajax_method: 'POST',
+                            url: "{% url 'rating' %}",
+                            additional_data:{
+                                product_id:{{ theproduct.id }},
+                                csrfmiddlewaretoken: "{{  csrf_token }}"
+
+                            }
+                        }
+                        $("#rating").rate(options);
+                    });
+                </script>
+
                 <form method="POST" action="{% url 'add_to_cart' %}">
                     {% csrf_token %}
                     <input type="hidden" name="product_id" value="{{ theproduct.id }}"/>
