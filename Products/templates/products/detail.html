@@ -58,9 +58,9 @@
                     <div id="rating" class="rating" style="font-size: 32px;position: absolute!important;" ></div>
 
 
-                     {% if theproduct.rating_mean != 0%}
-                        <span style="position: absolute;  right: 0;">{{ theproduct.rating_mean  }} <span style="font-size:32px;color: gold">★</span> </span>
-                     {% endif %}
+
+                    <span style="position: absolute;  right: 0;"><span id="valoracionMedia">{{ theproduct.rating_mean  }}</span> <span style="font-size:32px;color: gold">★</span> </span>
+
 
                 </div>
 
@@ -105,6 +105,12 @@
                             }
                         }
                         $("#rating").rate(options);
+
+                        $("#rating").on("updateSuccess", function(ev, data){
+                            $("#valoracionMedia").text(data)
+                        });
+
+
                     });
                 </script>
 

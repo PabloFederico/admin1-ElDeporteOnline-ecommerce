@@ -28,8 +28,8 @@ class RatingView(View):
         votados = votados + [producto_id]
         request.session['votados'] = votados
 
-        return HttpResponse(theproduct.ratings.values(), {'votados':votados})
-        # return render(request, 'products/detail.html', {'theproduct': theproduct})
+        return HttpResponse(theproduct.rating_mean(), {'votados':votados})
+        # return render(request, 'products/detail.html', {'votados': votados, 'theproduct': theproduct })
 
     def get(self, request):
         if 'votados' not in request.session:
