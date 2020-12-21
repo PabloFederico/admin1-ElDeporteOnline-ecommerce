@@ -68,7 +68,11 @@
                     }
                 </style>
 
-
+                {% if theproduct.rating_mean == 0%}
+                    <span>Podés ser el primero en valorar el producto</span>
+                {% else %}
+                    <span>{{ theproduct.rating_mean  }} <span style="font-size:32px;color: gold">★</span> | </span>
+                {% endif %}
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
                         var options = {
