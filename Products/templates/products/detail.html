@@ -53,26 +53,36 @@
                     <span style="font-size: x-large">{{ theproduct.price_with_discount }}</span> <br>
                 {% endif %}
 
-                <div id="rating" class="rating" style="font-size: 32px" ></div>
-                <style>
-                    .rate-base-layer
-                    {
-                        color: #aaa;
-                    }
-                    .rate-hover-layer
-                    {
-                        color: gold;
-                    }
-                    .rate-select-layer{
-                        color: gold;
-                    }
-                </style>
+                <div style="width: 100%; height: 50px;  position: relative">
+
+                    <div id="rating" class="rating" style="font-size: 32px;position: absolute!important;" ></div>
+                    </div>
+
+                     {% if theproduct.rating_mean != 0%}
+                        <span style="position: absolute;  right: 0;">{{ theproduct.rating_mean  }} <span style="font-size:32px;color: gold">★</span> </span>
+                     {% endif %}
+
+                    <style>
+                        .rate-base-layer
+                        {
+                            color: #aaa;
+                        }
+                        .rate-hover-layer
+                        {
+                            color: gold;
+                        }
+                        .rate-select-layer{
+                            color: gold;
+                        }
+                    </style>
+
+                </div>
 
                 {% if theproduct.rating_mean == 0%}
                     <span>Podés ser el primero en valorar el producto</span>
-                {% else %}
-                    <span>{{ theproduct.rating_mean  }} <span style="font-size:32px;color: gold">★</span> | </span>
                 {% endif %}
+
+
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
                         var options = {
