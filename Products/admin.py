@@ -35,5 +35,18 @@ class ProductAdmin(NestedModelAdmin):
     model = Product
     inlines = [ProductImageInline, ProductVideoInline, ProductVariantInline]
 
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'short_description', 'description', 'price')
+        }),
+        ('Promociones', {
+            'fields': ('discount',),
+        }),
+        ('Embalaje', {
+            'fields': (
+            ('weight', 'weight_unit'), ('width', 'width_unit'), ('height', 'height_unit'), ('depth', 'depth_unit')),
+        }),
+    )
+
     def image_preview(self, product):
         return mark_safe(f'<img src="{product.cover_image()}" width="100" height="100" />')
