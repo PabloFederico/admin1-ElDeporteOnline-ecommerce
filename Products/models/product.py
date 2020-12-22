@@ -103,7 +103,6 @@ class Product(models.Model):
         return Money(self.price_with_discount().amount * 150, "ARS")
 
     def shipping_price(self):
-        # TODO: meter calculo de envio cuando se implemente
         ancho = convertir_a_metros(self.width, self.width_unit)
         alto = convertir_a_metros(self.height, self.height_unit)
         profundidad = convertir_a_metros(self.depth, self.depth_unit)

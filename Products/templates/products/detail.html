@@ -65,7 +65,7 @@
                 </div>
 
                 {% if theproduct.rating_mean == 0%}
-                    <span>Podés ser el primero en valorar el producto</span>
+                    <span id="firstRate">Podés ser el primero en valorar el producto</span>
                 {% endif %}
 
                 <style>
@@ -108,6 +108,7 @@
 
                         $("#rating").on("updateSuccess", function(ev, data){
                             $("#valoracionMedia").text(data)
+                            $("#firstRate").hide();
                         });
 
 

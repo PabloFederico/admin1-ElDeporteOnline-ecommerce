@@ -24,14 +24,33 @@
                 </div>
 
                 <div style="width:100%; text-align: right">
-                        {% if product.discount %}
-                            <span style="vertical-align: middle" class="badge badge-danger"><b>OFERTA!</b></span>
-                        {% endif %}
-                        <span style="color: black; vertical-align: middle" class="h5">
+                    {% if product.discount %}
+                        <span style="vertical-align: middle" class="badge badge-danger"><b>OFERTA!</b></span>
+                    {% endif %}
+                    <span style="color: black; vertical-align: middle" class="h5">
                             <b>{{ product.price_with_discount }}</b>
                         </span>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <div id="rating{{ product.id }}" class="rating"
+                         style="font-size: 32px;position: absolute!important;"></div>
                 </div>
             </div>
         </div>
     </a>
 </li>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var options = {
+            readonly: true,
+            max_value: 5,
+            step_size: 0.5,
+            initial_value: "{{ product.rating_mean }}".replace(",", "."),
+            change_once: true,
+        }
+        $("#rating{{ product.id }}").rate(options);
+
+    });
+</script>
