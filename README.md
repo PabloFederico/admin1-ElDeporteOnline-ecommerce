@@ -1,8 +1,21 @@
+
+### Ejecución local del proyecto (requiere Python):
+- Instalar librerías del proyecto: `pip install -r requirements.txt`
+- Correr migraciones: `python manage.py migrate`
+- Ejecutar: `python manage.py runserver` (corre en el puerto 8000)
+- Url local: `localhost:8000`
+
+
+- Para crear un usuario administrador: `python manage.py createsuperuser`
+- URL: `localhost:8000/admin`
+
+
 ### Heroku
 - URL: https://admin1-equipo7.herokuapp.com/
 - admin: https://admin1-equipo7.herokuapp.com/admin
 - Usuario administrador: username `admin` password `admin`
 
+_________________________________________________________________________
 
 ### Server local
 - `python manage.py runserver` (corre en el puerto 8000)
